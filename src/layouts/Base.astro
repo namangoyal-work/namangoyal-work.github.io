@@ -1,0 +1,41 @@
+---
+/**
+ * Base.astro — the HTML shell shared by every page.
+ * Imports fonts + global styles, sets the theme before paint, and mounts
+ * the single client script that powers interactions.
+ */
+import "@fontsource-variable/inter";
+import "@fontsource-variable/space-grotesk";
+import "../styles/global.css";
+import Seo from "../components/Seo.astro";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo />
+
+    {/* Set theme before first paint to avoid a flash of the wrong theme. */}
+    <script is:inline>
+      (() => {
+        try {
+          const saved = localStorage.getItem("theme");
+          const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.setAttribute("data-theme", saved || (dark ? "dark" : "light"));
+        } catch {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <slot />
+    <script src="../scripts/main.ts"></script>
+  </body>
+</html>

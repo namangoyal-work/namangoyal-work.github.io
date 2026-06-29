@@ -1,0 +1,24 @@
+{
+  "name": "namangoyal-portfolio",
+  "type": "module",
+  "version": "2.0.0",
+  "description": "Personal portfolio of Naman Goyal — built with Astro + TypeScript.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/space-grotesk": "^5.1.1",
+    "astro": "^5.1.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.7.3"
+  }
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#08080b"/>
+      <stop offset="1" stop-color="#14141b"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.16" cy="0.12" r="0.6">
+      <stop offset="0" stop-color="#2563eb" stop-opacity="0.42"/>
+      <stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.92" cy="0.1" r="0.5">
+      <stop offset="0" stop-color="#7c3aed" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow1)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- monogram -->
+  <rect x="80" y="74" width="80" height="80" rx="19" fill="#ffffff"/>
+  <text x="120" y="129" font-family="'JetBrains Mono','SF Mono',monospace" font-size="36" font-weight="700" fill="#08080b" text-anchor="middle">NG</text>
+
+  <!-- status -->
+  <circle cx="92" cy="214" r="6" fill="#4ade80"/>
+  <text x="108" y="220" font-family="'SF Mono',monospace" font-size="21" fill="#a3a3ad">Research Intern · CISPA Helmholtz Center</text>
+
+  <!-- name -->
+  <text x="78" y="350" font-family="'Space Grotesk',Inter,Arial,sans-serif" font-size="110" font-weight="700" fill="#f4f4f5" letter-spacing="-5">Naman Goyal</text>
+
+  <!-- headline -->
+  <text x="80" y="424" font-family="'Space Grotesk',Inter,Arial,sans-serif" font-size="35" font-weight="500" fill="#d4d4d8">I build fast, correct systems — and research the</text>
+  <text x="80" y="470" font-family="'Space Grotesk',Inter,Arial,sans-serif" font-size="35" font-weight="500" fill="#d4d4d8">hardware they run on.</text>
+
+  <!-- footer line -->
+  <text x="80" y="546" font-family="Inter,Arial,sans-serif" font-size="24" fill="#8a8a94">Electrical Engineering · IIT Delhi</text>
+  <text x="1120" y="546" font-family="'SF Mono',monospace" font-size="22" fill="#6d8bff" text-anchor="end">namangoyal-work.github.io</text>
+</svg>

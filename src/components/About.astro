@@ -1,0 +1,69 @@
+---
+import { aboutParagraphs, education, skillGroups } from "../data/about";
+---
+
+<section class="section" id="about">
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">01 — About</span>
+      <h2 class="section__title">A builder with an olympiad's worth of fundamentals.</h2>
+    </header>
+
+    <div class="about">
+      <div class="about__lead reveal">
+        {aboutParagraphs.map((p) => <p>{p}</p>)}
+
+        <h3 class="about__h">Skills &amp; Tools</h3>
+        <div class="skills">
+          {skillGroups.map((g) => (
+            <div class="skills__group">
+              <p class="skills__label">{g.label}</p>
+              <div class="chips">
+                {g.items.map((s) => <span class="chip">{s}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <aside class="about__side reveal">
+        <h3 class="about__h">Education</h3>
+        <ul class="edu">
+          {education.map((e) => (
+            <li>
+              <p class="edu__org">{e.org}</p>
+              <p class="edu__detail">{e.detail}</p>
+              <p class="edu__meta">{e.meta}</p>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { display: grid; grid-template-columns: 1.55fr 1fr; gap: 56px; align-items: start; }
+  .about__lead p { color: var(--text-muted); font-size: 1.08rem; margin-bottom: 18px; }
+  .about__h {
+    font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-faint); margin: 36px 0 18px;
+  }
+  .about__side .about__h { margin-top: 0; }
+
+  .edu { list-style: none; padding: 0; }
+  .edu li { padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .edu li:first-child { padding-top: 0; }
+  .edu li:last-child { border-bottom: 0; }
+  .edu__org { font-family: var(--font-display); font-weight: 600; }
+  .edu__detail { color: var(--text-muted); font-size: 0.94rem; }
+  .edu__meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint); margin-top: 4px; }
+
+  .skills__group { margin-bottom: 18px; }
+  .skills__label { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+  @media (max-width: 880px) {
+    .about { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>

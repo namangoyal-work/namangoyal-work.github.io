@@ -1,0 +1,47 @@
+---
+import { achievementGroups } from "../data/achievements";
+---
+
+<section class="section section--alt" id="achievements">
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">04 — Recognition</span>
+      <h2 class="section__title">Where the fundamentals came from.</h2>
+    </header>
+
+    <div class="groups">
+      {achievementGroups.map((group) => (
+        <div class="group reveal">
+          <h3 class="group__title">{group.heading}</h3>
+          <ul class="list" data-stagger>
+            {group.items.map((a) => (
+              <li class="item">
+                <span class="badge">{a.badge}</span>
+                <div>
+                  <p class="item__title">{a.title}</p>
+                  <p class="item__detail">{a.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .groups { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .group__title { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: 20px; }
+  .list { list-style: none; padding: 0; display: grid; gap: 18px; }
+  .item { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; }
+  .badge {
+    display: inline-grid; place-items: center; min-width: 54px; padding: 6px 10px; border-radius: 9px;
+    font-family: var(--font-mono); font-size: 0.72rem; text-align: center; white-space: nowrap;
+    background: var(--accent-soft); color: var(--accent-ink);
+  }
+  .item__title { font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; margin-bottom: 2px; }
+  .item__detail { color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; }
+
+  @media (max-width: 880px) { .groups { grid-template-columns: 1fr; gap: 40px; } }
+</style>

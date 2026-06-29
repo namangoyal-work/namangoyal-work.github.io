@@ -1,0 +1,89 @@
+---
+import type { Project } from "../data/projects";
+import { categoryLabels } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+
+<article class={`project${project.featured ? " project--featured" : ""}`} data-category={project.category}>
+  <div class="project__head">
+    <h3 class="project__title">{project.title}</h3>
+    <span class="project__cat">{categoryLabels[project.category]}</span>
+  </div>
+
+  <p class="project__blurb">{project.blurb}</p>
+
+  <div class="project__foot">
+    <div class="chips">
+      {project.tags.map((t) => <span class="tech">{t}</span>)}
+    </div>
+
+    {project.links && project.links.length > 0 && (
+      <div class="project__links">
+        {project.links.map((l) => (
+          <a href={l.href} target="_blank" rel="noopener">
+            {l.label}
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+
+  <p class="project__context">{project.context}</p>
+</article>
+
+<style>
+  .project {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  /* Gradient ring that fades in on hover — the "dopamine" micro-interaction. */
+  .project::after {
+    content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.3s var(--ease);
+  }
+  .project:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+  .project:hover::after { opacity: 1; }
+  .project[hidden] { display: none; }
+
+  .project--featured { grid-column: span 2; }
+
+  .project__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .project__title { font-size: 1.2rem; line-height: 1.3; }
+  .project__cat {
+    font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--accent-ink); white-space: nowrap; padding-top: 4px;
+  }
+  .project__blurb { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 20px; flex: 1; }
+
+  .project__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech {
+    font-family: var(--font-mono); font-size: 0.72rem; padding: 4px 9px; border-radius: 7px;
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-muted);
+  }
+  :global(.section--alt) .tech { background: var(--bg); }
+
+  .project__links { display: flex; gap: 12px; }
+  .project__links a {
+    display: inline-flex; align-items: center; gap: 4px; font-size: 0.86rem; font-weight: 500;
+    color: var(--accent-ink); transition: gap 0.2s var(--ease);
+  }
+  .project__links a:hover { gap: 7px; }
+
+  .project__context { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); }
+
+  @media (max-width: 760px) {
+    .project--featured { grid-column: auto; }
+  }
+</style>

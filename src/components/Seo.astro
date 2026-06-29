@@ -1,0 +1,93 @@
+---
+/**
+ * Seo.astro — all <head> SEO in one place.
+ * Meta tags, Open Graph, Twitter cards, identity (rel=me), and a JSON-LD
+ * @graph (Person + WebSite + ProfilePage) so search engines can build a
+ * rich result for the name "Naman Goyal".
+ */
+import { site } from "../data/site";
+
+const base = Astro.site?.href ?? "https://namangoyal-work.github.io/";
+const canonical = new URL(Astro.url.pathname, base).href;
+const ogImage = new URL(site.seo.ogImage, base).href;
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${base}#person`,
+      name: site.name,
+      url: base,
+      image: ogImage,
+      email: `mailto:${site.email}`,
+      jobTitle: "Research Intern",
+      description: site.seo.description,
+      worksFor: { "@type": "Organization", name: "CISPA Helmholtz Center for Information Security" },
+      alumniOf: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Delhi" },
+      homeLocation: { "@type": "Place", name: site.location },
+      knowsAbout: site.seo.keywords,
+      sameAs: [site.socials.github, site.socials.linkedin],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${base}#website`,
+      url: base,
+      name: site.name,
+      description: site.seo.description,
+      publisher: { "@id": `${base}#person` },
+      inLanguage: "en",
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": canonical,
+      url: canonical,
+      name: site.seo.title,
+      isPartOf: { "@id": `${base}#website` },
+      about: { "@id": `${base}#person` },
+      inLanguage: "en",
+    },
+  ],
+};
+---
+
+<title>{site.seo.title}</title>
+<meta name="description" content={site.seo.description} />
+<meta name="author" content={site.name} />
+<meta name="keywords" content={site.seo.keywords.join(", ")} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#08080b" media="(prefers-color-scheme: dark)" />
+{site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+
+<!-- Identity: rel=me links help search engines connect your profiles. -->
+<link rel="me" href={site.socials.github} />
+<link rel="me" href={site.socials.linkedin} />
+<link rel="author" href={base} />
+
+<!-- Open Graph -->
+<meta property="og:type" content="profile" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content={site.seo.title} />
+<meta property="og:description" content={site.seo.description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${site.name} — ${site.role}`} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={site.seo.title} />
+<meta name="twitter:description" content={site.seo.description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Icons & manifest -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="apple-touch-icon" href="/favicon.svg" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(graph)} />

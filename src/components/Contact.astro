@@ -1,0 +1,80 @@
+---
+import { site } from "../data/site";
+
+const links = [
+  { k: "Email", v: site.email, href: `mailto:${site.email}` },
+  { k: "LinkedIn", v: "/in/namangoyalo ↗", href: site.socials.linkedin },
+  { k: "GitHub", v: "@namangoyal-work ↗", href: site.socials.github },
+  { k: "Based in", v: site.location, href: null },
+];
+---
+
+<section class="section" id="contact">
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">05 — Contact</span>
+      <h2 class="section__title">Let's build something.</h2>
+      <p class="section__lead">I'm open to quantitative, software, and hardware internships, and to research collaborations. Email is fastest — I read everything.</p>
+    </header>
+
+    <div class="contact">
+      <div class="contact__links reveal">
+        {links.map((l) =>
+          l.href ? (
+            <a class="row" href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener">
+              <span class="row__k">{l.k}</span>
+              <span class="row__v">{l.v}</span>
+            </a>
+          ) : (
+            <div class="row row--static">
+              <span class="row__k">{l.k}</span>
+              <span class="row__v">{l.v}</span>
+            </div>
+          ),
+        )}
+      </div>
+
+      <form class="form reveal" id="contact-form" novalidate>
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+        </div>
+        <button class="btn btn--primary" type="submit" style="width:100%">Send message</button>
+        <p class="note" id="form-note" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 4px; border-bottom: 1px solid var(--border); transition: padding 0.2s var(--ease), color 0.2s var(--ease); }
+  a.row:hover { padding-left: 12px; color: var(--accent-ink); }
+  .row__k { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); }
+  .row__v { font-size: 0.96rem; font-weight: 500; }
+
+  .form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+  .field { margin-bottom: 18px; }
+  .field label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; }
+  .field input, .field textarea {
+    width: 100%; padding: 12px 14px; font: inherit; font-size: 0.95rem; color: var(--text);
+    background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); resize: vertical;
+    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
+  .field :global(.is-invalid) { border-color: var(--err); }
+  .note { margin-top: 14px; font-size: 0.88rem; min-height: 1.2em; }
+  .note.is-ok { color: var(--ok); }
+  .note.is-err { color: var(--err); }
+
+  @media (max-width: 880px) { .contact { grid-template-columns: 1fr; gap: 36px; } }
+</style>
