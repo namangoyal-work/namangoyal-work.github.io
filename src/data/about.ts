@@ -20,16 +20,6 @@ export const education: Education[] = [
     detail: "B.Tech, Electrical Engineering (Power & Automation)",
     meta: "2024 – 2028 · CGPA 9.22 · Dept Rank #1",
   },
-  {
-    org: "M.M. Public School",
-    detail: "CBSE Class XII",
-    meta: "2024 · 92.6%",
-  },
-  {
-    org: "N.C. Jindal Public School",
-    detail: "CBSE Class X",
-    meta: "2022 · 97.2%",
-  },
 ];
 
 export interface SkillGroup {
