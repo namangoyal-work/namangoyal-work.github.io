@@ -17,7 +17,7 @@ export interface Education {
 export const education: Education[] = [
   {
     org: "IIT Delhi",
-    detail: "B.Tech, Electrical Engineering (Power & Automation)",
+    detail: "B.Tech, Electrical Engineering",
     meta: "2024 – 2028 · CGPA 9.22 · Dept Rank #1",
   },
 ];
