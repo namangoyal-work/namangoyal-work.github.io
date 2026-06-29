@@ -1,10 +1,10 @@
 ---
 import { site } from "../data/site";
 
-const links = [
-  { k: "Email", v: site.email, href: `mailto:${site.email}` },
-  { k: "LinkedIn", v: "/in/namangoyalo ↗", href: site.socials.linkedin },
-  { k: "GitHub", v: "@namangoyal-work ↗", href: site.socials.github },
+const methods = [
+  { k: "LinkedIn", v: "in/namangoyalo", href: site.socials.linkedin },
+  { k: "GitHub", v: "@namangoyal-work", href: site.socials.github },
+  { k: "Résumé", v: "Download PDF", href: site.resume },
   { k: "Based in", v: site.location, href: null },
 ];
 ---
@@ -14,67 +14,73 @@ const links = [
     <header class="section__head reveal">
       <span class="eyebrow">05 — Contact</span>
       <h2 class="section__title">Let's build something.</h2>
-      <p class="section__lead">I'm open to quantitative, software, and hardware internships, and to research collaborations. Email is fastest — I read everything.</p>
+      <p class="section__lead">
+        I'm open to quantitative, software, and hardware internships, and to research
+        collaborations. The fastest way to reach me is email — I read everything.
+      </p>
     </header>
 
-    <div class="contact">
-      <div class="contact__links reveal">
-        {links.map((l) =>
-          l.href ? (
-            <a class="row" href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener">
-              <span class="row__k">{l.k}</span>
-              <span class="row__v">{l.v}</span>
+    <div class="contact reveal">
+      <a class="email" href={`mailto:${site.email}`} data-magnetic>
+        <span class="email__label">Email me</span>
+        <span class="email__addr">{site.email}</span>
+        <svg class="email__arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+      </a>
+
+      <div class="methods">
+        {methods.map((m) =>
+          m.href ? (
+            <a class="method" href={m.href} target={m.href.startsWith("http") ? "_blank" : undefined} rel="noopener">
+              <span class="method__k">{m.k}</span>
+              <span class="method__v">{m.v}</span>
             </a>
           ) : (
-            <div class="row row--static">
-              <span class="row__k">{l.k}</span>
-              <span class="row__v">{l.v}</span>
+            <div class="method method--static">
+              <span class="method__k">{m.k}</span>
+              <span class="method__v">{m.v}</span>
             </div>
           ),
         )}
       </div>
-
-      <form class="form reveal" id="contact-form" novalidate>
-        <div class="field">
-          <label for="cf-name">Name</label>
-          <input id="cf-name" name="name" type="text" autocomplete="name" required />
-        </div>
-        <div class="field">
-          <label for="cf-email">Email</label>
-          <input id="cf-email" name="email" type="email" autocomplete="email" required />
-        </div>
-        <div class="field">
-          <label for="cf-message">Message</label>
-          <textarea id="cf-message" name="message" rows="5" required></textarea>
-        </div>
-        <button class="btn btn--primary" type="submit" style="width:100%">Send message</button>
-        <p class="note" id="form-note" role="status" aria-live="polite"></p>
-      </form>
     </div>
   </div>
 </section>
 
 <style>
-  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .contact { display: grid; gap: 18px; }
 
-  .row { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px 4px; border-bottom: 1px solid var(--border); transition: padding 0.2s var(--ease), color 0.2s var(--ease); }
-  a.row:hover { padding-left: 12px; color: var(--accent-ink); }
-  .row__k { font-family: var(--font-mono); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); }
-  .row__v { font-size: 0.96rem; font-weight: 500; }
-
-  .form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
-  .field { margin-bottom: 18px; }
-  .field label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--text-muted); margin-bottom: 8px; }
-  .field input, .field textarea {
-    width: 100%; padding: 12px 14px; font: inherit; font-size: 0.95rem; color: var(--text);
-    background: var(--bg); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); resize: vertical;
-    transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  /* The email is the focal point of the closing section. */
+  .email {
+    position: relative; display: flex; flex-direction: column; gap: 6px;
+    padding: 32px clamp(24px, 4vw, 40px);
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow-sm); overflow: hidden;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
-  .field :global(.is-invalid) { border-color: var(--err); }
-  .note { margin-top: 14px; font-size: 0.88rem; min-height: 1.2em; }
-  .note.is-ok { color: var(--ok); }
-  .note.is-err { color: var(--err); }
+  .email::after {
+    content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 0.3s var(--ease);
+  }
+  .email:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .email:hover::after { opacity: 1; }
+  .email__label { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); }
+  .email__addr { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 4.5vw, 2.4rem); letter-spacing: -0.02em; word-break: break-word; }
+  .email__arrow { position: absolute; top: 28px; right: 28px; color: var(--accent); transition: transform 0.3s var(--ease); }
+  .email:hover .email__arrow { transform: translate(3px, -3px); }
 
-  @media (max-width: 880px) { .contact { grid-template-columns: 1fr; gap: 36px; } }
+  .methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .method {
+    display: flex; flex-direction: column; gap: 6px; padding: 20px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  a.method:hover { transform: translateY(-3px); border-color: var(--border-strong); color: var(--accent-ink); }
+  .method__k { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); }
+  .method__v { font-size: 0.95rem; font-weight: 500; }
+
+  @media (max-width: 760px) { .methods { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 420px) { .methods { grid-template-columns: 1fr; } }
 </style>

@@ -184,60 +184,6 @@ function initSpotlight(): void {
   });
 }
 
-/** Contact form: validate, then send. Defaults to opening the mail client. */
-function initContactForm(): void {
-  const form = document.querySelector<HTMLFormElement>("#contact-form");
-  const note = document.querySelector<HTMLElement>("#form-note");
-  if (!form) return;
-
-  // To collect submissions server-side, paste a Formspree/Getform URL here.
-  const FORM_ENDPOINT = "";
-
-  const say = (msg: string, kind: "ok" | "err" | "") => {
-    if (!note) return;
-    note.textContent = msg;
-    note.classList.toggle("is-ok", kind === "ok");
-    note.classList.toggle("is-err", kind === "err");
-  };
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    try {
-      const data = new FormData(form);
-      const name = String(data.get("name") ?? "").trim();
-      const email = String(data.get("email") ?? "").trim();
-      const message = String(data.get("message") ?? "").trim();
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-      form.querySelectorAll("input, textarea").forEach((el) => el.classList.remove("is-invalid"));
-      if (name.length < 2) return invalid("name", "Please enter your name.");
-      if (!emailOk) return invalid("email", "Please enter a valid email.");
-      if (message.length < 10) return invalid("message", "A little more detail, please (10+ characters).");
-
-      if (FORM_ENDPOINT) {
-        say("Sending…", "");
-        const res = await fetch(FORM_ENDPOINT, { method: "POST", headers: { Accept: "application/json" }, body: data });
-        if (!res.ok) throw new Error(`status ${res.status}`);
-        form.reset();
-        return say("Thanks — your message was sent.", "ok");
-      }
-
-      const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-      const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-      window.location.href = `mailto:goyalnaman.work@gmail.com?subject=${subject}&body=${body}`;
-      say("Opening your email app… if nothing happens, write to goyalnaman.work@gmail.com", "ok");
-    } catch (err) {
-      console.warn("[portfolio] contact submit failed:", err);
-      say("Something went wrong — please email me directly at goyalnaman.work@gmail.com", "err");
-    }
-
-    function invalid(field: string, msg: string) {
-      form!.querySelector(`[name="${field}"]`)?.classList.add("is-invalid");
-      say(msg, "err");
-    }
-  });
-}
-
 /** Stamp the current year into the footer. */
 function initYear(): void {
   const el = document.querySelector("#year");
@@ -253,5 +199,4 @@ safe("reveal", initReveal);
 safe("filters", initFilters);
 safe("magnetic", initMagnetic);
 safe("spotlight", initSpotlight);
-safe("contact-form", initContactForm);
 safe("year", initYear);

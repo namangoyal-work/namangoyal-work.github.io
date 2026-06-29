@@ -15,7 +15,13 @@ const SITE = "https://namangoyal.me";
 export default defineConfig({
   site: SITE,
   trailingSlash: "ignore",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      changefreq: "monthly",
+      priority: 1.0,
+      lastmod: new Date(),
+    }),
+  ],
   build: { inlineStylesheets: "auto" },
   // Prefetch internal links on hover for an instant-feel UX.
   prefetch: { prefetchAll: true, defaultStrategy: "hover" },
