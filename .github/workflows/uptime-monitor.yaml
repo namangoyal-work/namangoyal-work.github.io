@@ -1,0 +1,36 @@
+name: Uptime monitor
+
+# Hourly health check: curl the live site and report to Healthchecks.io.
+# Healthchecks alerts you if the site is down OR if this job ever stops pinging.
+on:
+  schedule:
+    - cron: "0 * * * *" # every hour (UTC)
+  workflow_dispatch: {} # lets you run it manually from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check namangoyal.me and report to Healthchecks.io
+        env:
+          HC_URL: ${{ secrets.HEALTHCHECK_URL }}
+          SITE: "https://namangoyal.me/"
+        run: |
+          if [ -z "$HC_URL" ]; then
+            echo "::warning::HEALTHCHECK_URL secret is not set — add it in Settings → Secrets and variables → Actions."
+            exit 0
+          fi
+
+          code=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 25 --retry 2 --retry-delay 5 "$SITE" || echo "000")
+
+          if [ "$code" = "200" ]; then
+            curl -fsS --max-time 10 "$HC_URL" > /dev/null
+            echo "✅ $SITE is up ($code) — success ping sent."
+          else
+            curl -fsS --max-time 10 "$HC_URL/fail" > /dev/null || true
+            echo "❌ $SITE returned HTTP $code — fail ping sent."
+            exit 1
+          fi
