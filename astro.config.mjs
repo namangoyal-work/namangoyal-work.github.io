@@ -10,7 +10,7 @@ import sitemap from "@astrojs/sitemap";
 // • Custom domain (later):   https://your-domain.tld
 //   → change SITE below AND put the bare domain in `public/CNAME`.
 // ─────────────────────────────────────────────────────────────
-const SITE = "https://namangoyal-work.github.io";
+const SITE = "https://namangoyal.me";
 
 export default defineConfig({
   site: SITE,

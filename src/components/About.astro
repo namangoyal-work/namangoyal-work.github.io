@@ -1,5 +1,5 @@
 ---
-import { aboutParagraphs, education, skillGroups } from "../data/about";
+import { aboutParagraphs, education, skillGroups, interests } from "../data/about";
 ---
 
 <section class="section" id="about">
@@ -37,6 +37,11 @@ import { aboutParagraphs, education, skillGroups } from "../data/about";
             </li>
           ))}
         </ul>
+
+        <h3 class="about__h">Off the clock</h3>
+        <div class="chips">
+          {interests.map((i) => <span class="chip">{i}</span>)}
+        </div>
       </aside>
     </div>
   </div>

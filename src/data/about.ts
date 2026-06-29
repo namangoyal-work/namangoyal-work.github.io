@@ -61,3 +61,10 @@ export const focusAreas: string[] = [
   "FPGA / Verilog",
   "Algorithms",
 ];
+
+/** Life outside the lab — shown as chips in the About section. */
+export const interests: string[] = [
+  "Grade 8 guitarist",
+  "Formula 1",
+  "Football",
+];

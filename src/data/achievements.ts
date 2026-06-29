@@ -46,6 +46,12 @@ export const achievementGroups: AchievementGroup[] = [
           "The proof-based stage after IOQM that feeds India's IMO team selection. Qualified and was invited to the International Mathematical Olympiad training camp.",
       },
       {
+        badge: "Top 1%",
+        title: "Chemistry Olympiad — NSEC",
+        detail:
+          "National Standard Examination in Chemistry, the first stage of India's Chemistry Olympiad. Placed in the national top 1%, qualifying for the next round.",
+      },
+      {
         badge: "2nd",
         title: "NMTC — National Mathematics Talent Contest",
         detail:
@@ -64,6 +70,12 @@ export const achievementGroups: AchievementGroup[] = [
           "HBCSE's national junior-science round (after NSEJS) — the stage that selects India's team for the International Junior Science Olympiad. Qualified as one of the top junior-science students in the country.",
       },
       {
+        badge: "R2",
+        title: "Dr. Homi Bhabha Balvaidnyanik Competition",
+        detail:
+          "A multi-stage school science competition (written, practical, and interview rounds). Cleared the written stage and was invited to Round 2.",
+      },
+      {
         badge: "Bronze",
         title: "Panini Linguistics Olympiad",
         detail:
@@ -72,8 +84,32 @@ export const achievementGroups: AchievementGroup[] = [
     ],
   },
   {
-    heading: "Scholarships & Honors",
+    heading: "Fellowships, Programs & Honors",
     items: [
+      {
+        badge: "Atlas",
+        title: "Atlas Fellowship",
+        detail:
+          "One of the most selective fellowships for ambitious students worldwide (single-digit-percent acceptance), pairing a scholarship with a summer program in the San Francisco Bay Area.",
+      },
+      {
+        badge: "ESPR",
+        title: "European Summer Program on Rationality",
+        detail:
+          "A free, highly selective residential program in Europe for mathematically gifted teenagers, covering rationality, cognitive science, mathematics, computer science, and decision-making.",
+      },
+      {
+        badge: "STEMS",
+        title: "STEMS — Chennai Mathematical Institute",
+        detail:
+          "A national mathematics and computer-science contest run by CMI, with an on-campus camp for the top performers. Selected to participate.",
+      },
+      {
+        badge: "LIMIT",
+        title: "LIMIT — IIT Bombay",
+        detail:
+          "A competitive mathematics olympiad and camp hosted by the mathematics club at IIT Bombay. Selected to participate.",
+      },
       {
         badge: "#1",
         title: "Department Rank 1 — IIT Delhi",
@@ -83,12 +119,6 @@ export const achievementGroups: AchievementGroup[] = [
         badge: "Top 7%",
         title: "Semester Merit Award",
         detail: "Cash scholarship for finishing in the top 7% of the institute (semesters 1 & 3).",
-      },
-      {
-        badge: "ESPR",
-        title: "European Summer Program on Rationality",
-        detail:
-          "A free, highly selective residential program in Europe for mathematically gifted teenagers, covering rationality, cognitive science, mathematics, computer science, and decision-making. Selected to attend.",
       },
       {
         badge: "MVPP",
