@@ -18,7 +18,7 @@ export const site = {
   subhead:
     "Electrical Engineering at IIT Delhi, currently a research intern at CISPA working on hardware security. I like low-latency C++, quantum computing, and turning hard problems into clean code.",
 
-  email: "goyalnaman.work@gmail.com",
+  email: "namangoyal@tutamail.com",
   location: "New Delhi, India",
   resume: "/Naman_Goyal_Resume.pdf",
 
