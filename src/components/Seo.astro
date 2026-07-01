@@ -44,6 +44,9 @@ const graph = {
       url: canonical,
       name: site.seo.title,
       isPartOf: { "@id": `${base}#website` },
+      // mainEntity is the field Google requires on a ProfilePage: it points to
+      // the Person the profile is about. `about` alone isn't enough.
+      mainEntity: { "@id": `${base}#person` },
       about: { "@id": `${base}#person` },
       inLanguage: "en",
     },
