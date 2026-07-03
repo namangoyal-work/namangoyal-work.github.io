@@ -1,29 +1,36 @@
 ---
-import { achievementGroups } from "../data/achievements";
+import { achievementPhases } from "../data/achievements";
 ---
 
 <section class="section section--alt" id="achievements">
   <div class="container">
     <header class="section__head reveal">
       <span class="eyebrow">04 — Recognition</span>
-      <h2 class="section__title">Where the fundamentals came from.</h2>
+      <h2 class="section__title">Honors &amp; Awards.</h2>
     </header>
 
-    <div class="groups">
-      {achievementGroups.map((group) => (
-        <div class="group reveal">
-          <h3 class="group__title">{group.heading}</h3>
-          <ul class="list" data-stagger>
-            {group.items.map((a) => (
-              <li class="item">
-                <span class="badge">{a.badge}</span>
-                <div>
-                  <p class="item__title">{a.title}</p>
-                  <p class="item__detail">{a.detail}</p>
-                </div>
-              </li>
+    <div class="phases">
+      {achievementPhases.map((phase) => (
+        <div class="phase reveal">
+          <h3 class="phase__title">{phase.phase}</h3>
+          <div class="groups">
+            {phase.groups.map((group) => (
+              <div class="group">
+                <h4 class="group__title">{group.heading}</h4>
+                <ul class="list" data-stagger>
+                  {group.items.map((a) => (
+                    <li class="item">
+                      <span class="badge">{a.badge}</span>
+                      <div>
+                        <p class="item__title">{a.title}</p>
+                        <p class="item__detail">{a.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ))}
     </div>
@@ -31,6 +38,11 @@ import { achievementGroups } from "../data/achievements";
 </section>
 
 <style>
+  .phases { display: grid; gap: 56px; }
+  .phase__title {
+    font-family: var(--font-display); font-weight: 600; font-size: 1.35rem; letter-spacing: -0.02em;
+    padding-bottom: 12px; margin-bottom: 28px; border-bottom: 1px solid var(--border);
+  }
   .groups { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
   .group__title { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-faint); margin-bottom: 20px; }
   .list { list-style: none; padding: 0; display: grid; gap: 18px; }

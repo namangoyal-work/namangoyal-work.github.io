@@ -6,7 +6,7 @@ import { aboutParagraphs, education, skillGroups, interests } from "../data/abou
   <div class="container">
     <header class="section__head reveal">
       <span class="eyebrow">01 — About</span>
-      <h2 class="section__title">A builder with an olympiad's worth of fundamentals.</h2>
+      <h2 class="section__title">Building rigorous systems, grounded in research.</h2>
     </header>
 
     <div class="about">
@@ -34,6 +34,7 @@ import { aboutParagraphs, education, skillGroups, interests } from "../data/abou
               <p class="edu__org">{e.org}</p>
               <p class="edu__detail">{e.detail}</p>
               <p class="edu__meta">{e.meta}</p>
+              {e.honors && <p class="edu__honors">{e.honors}</p>}
             </li>
           ))}
         </ul>
@@ -63,6 +64,7 @@ import { aboutParagraphs, education, skillGroups, interests } from "../data/abou
   .edu__org { font-family: var(--font-display); font-weight: 600; }
   .edu__detail { color: var(--text-muted); font-size: 0.94rem; }
   .edu__meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-faint); margin-top: 4px; }
+  .edu__honors { font-size: 0.86rem; color: var(--text-muted); margin-top: 8px; }
 
   .skills__group { margin-bottom: 18px; }
   .skills__label { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 10px; }

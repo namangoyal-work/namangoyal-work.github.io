@@ -16,7 +16,7 @@ export const site = {
 
   /** A supporting line for the hero. Keep it concrete, not boastful. */
   subhead:
-    "Electrical Engineering at IIT Delhi, currently a research intern at CISPA working on hardware security. I like low-latency C++, quantum computing, and turning hard problems into clean code.",
+    "Electrical Engineering at IIT Delhi, currently a research intern at CISPA working on hardware security. I focus on low-latency C++, quantum computing, and turning hard problems into clean code.",
 
   email: "namangoyal@tutamail.com",
   location: "New Delhi, India",

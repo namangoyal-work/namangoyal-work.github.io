@@ -5,13 +5,15 @@
 /** Each string is one paragraph. Keep it to two or three. */
 export const aboutParagraphs: string[] = [
   "I'm a second-year Electrical Engineering student at IIT Delhi, ranked first in my department. I'm drawn to problems that sit between disciplines — where a clean algorithm, a tight C++ implementation, and real silicon all have to agree.",
-  "Right now that means hardware-security research at CISPA, alongside systems I build for rigor and fun: a low-latency C++ execution engine, quantum simulators, and FPGA designs. My background is competitive math and science, and I'm channeling it into real software and hardware engineering.",
+  "Right now that means hardware-security research at CISPA, alongside systems I build to sharpen my craft: a low-latency C++ execution engine, quantum simulators, and FPGA designs. My background is competitive mathematics and science, and I apply it to real software and hardware engineering.",
 ];
 
 export interface Education {
   org: string;
   detail: string;
   meta: string;
+  /** Optional academic honors line shown under the meta. */
+  honors?: string;
 }
 
 export const education: Education[] = [
@@ -19,6 +21,7 @@ export const education: Education[] = [
     org: "IIT Delhi",
     detail: "B.Tech, Electrical Engineering",
     meta: "2024 – 2028 · CGPA 9.22 · Dept Rank #1",
+    honors: "Institute Merit Award — top 7% of the institute (semesters 1 & 3)",
   },
 ];
 
