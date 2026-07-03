@@ -42,7 +42,8 @@ export const achievementPhases: AchievementPhase[] = [
           {
             badge: "Winner",
             title: "Atlassian FastTrack",
-            detail: "Selected as a winner of Atlassian's FastTrack program.",
+            detail:
+              "Won Atlassian's FastTrack, an AI-assisted hackathon — building working software rapidly with AI-powered tooling under a tight deadline.",
           },
         ],
       },
