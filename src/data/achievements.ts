@@ -109,12 +109,7 @@ export const achievementPhases: AchievementPhase[] = [
             detail:
               "A major international olympiad in classical geometry, run from Russia by the Steklov Mathematical Institute and partners. Awarded a diploma in the correspondence round of the 16th edition.",
           },
-          {
-            badge: "Top 3%",
-            title: "Indian National Junior Science Olympiad (NSEJS)",
-            detail:
-              "The national qualifier for India's Junior Science Olympiad, run by HBCSE. Placed among the top 310 of 10,013 candidates nationwide, earning a Certificate of Merit and a shortlist for the next stage.",
-          },
+         
           {
             badge: "R2",
             title: "Dr. Homi Bhabha Balvaidnyanik Competition",
@@ -161,12 +156,6 @@ export const achievementPhases: AchievementPhase[] = [
             title: "LIMIT — Indian Statistical Institute, Bangalore",
             detail:
               "An international online mathematics competition organised by students and scholars of the Indian Statistical Institute (ISI), Bangalore. Ranked within the top 15 in Category A.",
-          },
-          {
-            badge: "Camp",
-            title: "Mathematical Olympiad Orientation Camp (MOOC)",
-            detail:
-              "Took part in HBCSE's (TIFR) national mathematical-olympiad orientation camp — a two-week virtual program of problem-solving in olympiad mathematics.",
           },
           {
             badge: "MVPP",
