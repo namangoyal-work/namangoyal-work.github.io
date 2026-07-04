@@ -66,7 +66,6 @@ export const projects: Project[] = [
   {
     title: "Solovay–Kitaev Unitary Decomposer",
     category: "quantum",
-    featured: true,
     blurb:
       "A clean, high-performance implementation of the Solovay–Kitaev algorithm: recursive decomposition of SU(2) unitaries into a discrete gate set at O(log^2.71(1/ε)) complexity, with a precomputed base-case table and vectorized nearest-neighbor search.",
     tags: ["Python", "Numerical", "Quantum Compilers"],
@@ -81,24 +80,6 @@ export const projects: Project[] = [
     tags: ["Python", "Qiskit", "Quantum"],
     context: "Course · Prof. Rajendra Kumar · 2026",
     links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/QicQacQoe" }],
-  },
-  {
-    title: "Time-Travelling File System",
-    category: "systems",
-    blurb:
-      "A Git-inspired version control system in C++ built on custom Heap and HashMap structures, with pointer-based memory management for snapshotting and full history tracking, achieving O(log n) state rollbacks and revision traversals.",
-    tags: ["C++", "Data Structures", "VCS"],
-    context: "Course · Prof. Rohit Vaish · 2025",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/TimeTravellingFileSystem" }],
-  },
-  {
-    title: "SocialNet — Network Backend",
-    category: "systems",
-    blurb:
-      "A C++ social-network backend built on custom AVL trees and graph structures, with pointer-based node management handling user interactions, post mapping, and network traversal.",
-    tags: ["C++", "AVL Trees", "Graphs"],
-    context: "Course · Prof. Rajendra Kumar · 2025",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/SocialNet" }],
   },
   {
     title: "Automated Retinal Segmentation",
@@ -117,13 +98,5 @@ export const projects: Project[] = [
     tags: ["Python", "NLP", "ML"],
     context: "Independent · 2025",
     links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/UserRating" }],
-  },
-  {
-    title: "4-bit Gray Code Counter (FPGA)",
-    category: "hardware",
-    blurb:
-      "A 4-bit Gray-code counter on a Nexys Artix-7 FPGA in Verilog, designed for minimal bit transitions across all states, with SR flip-flop input logic optimized via Karnaugh maps for efficient resource usage.",
-    tags: ["Verilog", "FPGA", "Vivado", "Digital Logic"],
-    context: "Course · Prof. Manan Suri · 2025",
   },
 ];
