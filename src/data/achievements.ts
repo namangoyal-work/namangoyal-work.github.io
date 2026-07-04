@@ -46,7 +46,7 @@ export const achievementPhases: AchievementPhase[] = [
               "Won Atlassian's FastTrack, an AI-assisted hackathon — building working software rapidly with AI-powered tooling under a tight deadline.",
           },
           {
-            bade: "Bronze",
+            badge: "Bronze",
             title: "AMS Derive Prosterior",
             detail:
               "Top 3 among more than 150 participants selected to write the second round of the competition involving programming and math problems based on quant finance. Invited to attend finals at IIT Bombay."
