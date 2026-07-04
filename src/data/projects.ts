@@ -44,6 +44,16 @@ export const projects: Project[] = [
     context: "Independent · 2025",
   },
   {
+    title: "Wire-Speed FPGA Network Parser",
+    category: "hardware",
+    featured: true,
+    blurb:
+      "A wire-speed MAC/IP/UDP header parser with a fixed-latency Level-1 trigger, written in SystemVerilog. Formally verified with SymbiYosys and adversarially tested with a cocotb + scapy bench that fires malformed and edge-case packets through the pipeline.",
+    tags: ["SystemVerilog", "FPGA", "Formal Verification", "cocotb"],
+    context: "Independent · 2026",
+    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-net-parser" }],
+  },
+  {
     title: "KAN-PINN Battery State-of-Health",
     category: "ml",
     featured: true,

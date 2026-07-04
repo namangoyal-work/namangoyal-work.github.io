@@ -1,12 +1,12 @@
 /**
  * achievements.ts — grouped, human-readable accomplishments, split by phase
- * (University vs High School).
+ * (University vs Pre-University).
  *
  * Written for people to read, not for an ATS. Each `detail` says what the
  * program/olympiad actually *is*, so a reader who's never heard of it still
  * understands why it's hard. `badge` is the short label on the left.
  *
- * Structure: each phase (University / High School) holds one or more groups,
+ * Structure: each phase (University / Pre-University) holds one or more groups,
  * and each group holds the individual achievements.
  */
 
@@ -50,7 +50,7 @@ export const achievementPhases: AchievementPhase[] = [
     ],
   },
   {
-    phase: "High School",
+    phase: "Pre-University",
     groups: [
       {
         heading: "Olympiads & Competitions",
