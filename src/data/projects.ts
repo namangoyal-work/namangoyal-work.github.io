@@ -34,6 +34,16 @@ export const categoryLabels: Record<Category | "all", string> = {
 };
 
 export const projects: Project[] = [
+    {
+    title: "FPGA Tick To Trade Pipeline",
+    category: "Systems & Performance",
+    featured: true,
+    blurb:
+      "An ultra-low latency high-frequency trading system implemented entirely on an FPGA for wire-speed execution. Features hardware-level protocol decoding, deterministic order encoding, and built-in fault tolerance with real-time heartbeat monitoring and data corruption handling.",
+    tags: ["SystemVerilog", "FPGA", "Formal Verification", "VerilogFPGALow-latencyHFT."],
+    context: "Independent · 2026",
+    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }],
+  },
   {
     title: "Low-Latency C++ Execution Engine",
     category: "systems",
