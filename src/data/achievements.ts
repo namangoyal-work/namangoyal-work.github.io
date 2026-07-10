@@ -53,6 +53,17 @@ export const achievementPhases: AchievementPhase[] = [
           },
         ],
       },
+      {
+        heading: "Selective Programs",
+        items: [
+          {
+            badge: "SEE",
+            title: "Jane Street SEE — Quantitative Trading Track",
+            detail:
+              "Selected for Jane Street's SEE program (Quantitative Trading track, Hong Kong, Dec 2025) — an invite-based program on mathematical and financial topics including probability, market structure, and arbitrage.",
+          },
+        ],
+      },
     ],
   },
   {
@@ -74,16 +85,28 @@ export const achievementPhases: AchievementPhase[] = [
               "HBCSE's national astronomy round. Gold medal and a top ~29 finish nationally, on the selection pathway for the International Olympiad on Astronomy & Astrophysics (IOAA).",
           },
           {
-            badge: "Gold",
+            badge: "Platinum",
             title: "Competitive Programming — USACO & COCI",
             detail:
-              "Reached the Gold division of the USA Computing Olympiad (advanced graph algorithms, DP, and greedy problems), and placed Rank 1 in a round of the Croatian Open Competition in Informatics (COCI).",
+              "Reached the Platinum division — the highest — of the USA Computing Olympiad, promoting with a perfect 1000/1000 (Rank 1) contest, and placed Rank 1 in a round of the Croatian Open Competition in Informatics (COCI).",
           },
           {
-            badge: "INMO",
-            title: "Indian National Mathematical Olympiad",
+            badge: "AIR 1",
+            title: "Technothlon — International School Championship",
             detail:
-              "The proof-based stage after IOQM that feeds India's IMO team selection. Qualified and was invited to the International Mathematical Olympiad training camp.",
+              "IIT Guwahati's international school championship (Techniche), testing logic and applied problem-solving. All India Rank 1 in the Juniors squad (2021), with a Gold certificate.",
+          },
+          {
+            badge: "Awardee",
+            title: "Indian National Mathematical Olympiad (INMO)",
+            detail:
+              "The proof-based stage after IOQM that feeds India's IMO team selection. Declared an INMO Awardee (2022) by HBCSE/NBHM and invited to the International Mathematical Olympiad training camp.",
+          },
+          {
+            badge: "Top 36",
+            title: "Indian National Junior Science Olympiad (INJSO)",
+            detail:
+              "The national round of India's Junior Science Olympiad (IAPT/HBCSE). Finished in the top 36 in the country (2021), earning a Certificate of Merit and eligibility for the camp that selects India's International Junior Science Olympiad team. Reached the national round as one of 310 shortlisted from 10,013 candidates in NSEJS.",
           },
           {
             badge: "Distinction",
@@ -92,10 +115,10 @@ export const achievementPhases: AchievementPhase[] = [
               "The UK's premier school mathematics olympiad (UK Maths Trust, supported by Jane Street). Qualified from Round 1 into the invitation-only Round 2 and earned a Certificate of Distinction — best in school.",
           },
           {
-            badge: "Top 1%",
-            title: "Chemistry Olympiad — NSEC",
+            badge: "Top 54",
+            title: "Indian National Chemistry Olympiad (INChO)",
             detail:
-              "National Standard Examination in Chemistry, the first stage of India's Chemistry Olympiad. Placed in the national top 1%, qualifying for the next round.",
+              "India's national Chemistry Olympiad round (HBCSE), reached after placing in the national top 1% of NSEC. Finished in the top 54 in the country (2023), earning a Certificate of Merit and eligibility for the next stage of International Chemistry Olympiad team selection.",
           },
           {
             badge: "2nd",
@@ -104,10 +127,10 @@ export const achievementPhases: AchievementPhase[] = [
               "A rigorous proof-and-problem-solving olympiad run by the Association of Mathematics Teachers of India. Finished 2nd.",
           },
           {
-            badge: "Honor",
+            badge: "138/150",
             title: "AMC 10B — Honor Roll",
             detail:
-              "The MAA's American Mathematics Competition (25 problems, 75 minutes). Scored on the Honor Roll, among the top scorers nationally.",
+              "The MAA's American Mathematics Competition (25 problems, 75 minutes), written from India. Scored 138/150, placing on the Honor Roll among the top scorers.",
           },
           {
             badge: "Diploma",
@@ -144,6 +167,12 @@ export const achievementPhases: AchievementPhase[] = [
             title: "European Summer Program on Rationality",
             detail:
               "A free, highly selective residential program in Europe for mathematically gifted teenagers, covering rationality, cognitive science, mathematics, computer science, and decision-making.",
+          },
+          {
+            badge: "Camp",
+            title: "Mathematical Olympiad Orientation Camp (MOOC) — HBCSE",
+            detail:
+              "An invitational camp run by the Homi Bhabha Centre for Science Education (TIFR) and India's national Mathematical Olympiad coordinators for the country's top young olympiad mathematicians (May 2021).",
           },
           {
             badge: "Distinction",

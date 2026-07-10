@@ -6,10 +6,18 @@
  * rich result for the name "Naman Goyal".
  */
 import { site } from "../data/site";
+import { achievementPhases } from "../data/achievements";
 
 const base = Astro.site?.href ?? "https://namangoyal-work.github.io/";
 const canonical = new URL(Astro.url.pathname, base).href;
 const ogImage = new URL(site.seo.ogImage, base).href;
+
+// Flatten the achievements data into schema.org Person.award entries, so the
+// structured data stays in sync with the visible Recognition section — a
+// richer Person entity helps Google build a knowledge panel for the name.
+const awards = achievementPhases.flatMap((phase) =>
+  phase.groups.flatMap((g) => g.items.map((a) => `${a.title} — ${a.badge}`)),
+);
 
 const graph = {
   "@context": "https://schema.org",
@@ -27,6 +35,7 @@ const graph = {
       alumniOf: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Delhi" },
       homeLocation: { "@type": "Place", name: site.location },
       knowsAbout: site.seo.keywords,
+      award: awards,
       sameAs: [site.socials.github, site.socials.linkedin],
     },
     {
