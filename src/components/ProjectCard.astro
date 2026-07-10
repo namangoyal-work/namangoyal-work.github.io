@@ -1,0 +1,107 @@
+---
+import type { Project } from "../data/projects";
+import { categoryLabels } from "../data/projects";
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+
+<article class={`project${project.featured ? " project--featured" : ""}`} data-category={project.category}>
+  <div class="project__head">
+    <h3 class="project__title">{project.title}</h3>
+    <span class="project__cat">{categoryLabels[project.category]}</span>
+  </div>
+
+  <p class="project__blurb">{project.blurb}</p>
+
+  <div class="project__foot">
+    <div class="chips">
+      {project.tags.map((t) => <span class="tech">{t}</span>)}
+    </div>
+
+    {project.links && project.links.length > 0 && (
+      <div class="project__links">
+        {project.links.map((l) => {
+          const isGitHub = l.href.includes("github.com");
+          return (
+            <a
+              class={`project__link${isGitHub ? " project__link--cover" : ""}`}
+              href={l.href}
+              target="_blank"
+              rel="noopener"
+              aria-label={`${project.title} — view on ${isGitHub ? "GitHub" : l.label}`}
+            >
+              {isGitHub ? (
+                <svg viewBox="0 0 16 16" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.65-.89-3.65-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+              ) : (
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+              )}
+              {l.label}
+            </a>
+          );
+        })}
+      </div>
+    )}
+  </div>
+
+  <p class="project__context">{project.context}</p>
+</article>
+
+<style>
+  .project {
+    position: relative; display: flex; flex-direction: column;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px; box-shadow: var(--shadow-sm);
+    transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  /* Gradient ring that fades in on hover — the "dopamine" micro-interaction. */
+  .project::after {
+    content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity 0.3s var(--ease);
+  }
+  .project:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+  .project:hover::after { opacity: 1; }
+  .project[hidden] { display: none; }
+
+  .project--featured { grid-column: span 2; }
+
+  .project__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .project__title { font-size: 1.2rem; line-height: 1.3; }
+  .project__cat {
+    font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--accent-ink); white-space: nowrap; padding-top: 4px;
+  }
+  .project__blurb { color: var(--text-muted); font-size: 0.96rem; margin-bottom: 20px; flex: 1; }
+
+  .project__foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech {
+    font-family: var(--font-mono); font-size: 0.72rem; padding: 4px 9px; border-radius: 7px;
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-muted);
+  }
+  :global(.section--alt) .tech { background: var(--bg); }
+
+  .project__links { display: flex; gap: 14px; }
+  .project__link {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 0.86rem; font-weight: 500;
+    color: var(--accent-ink); transition: gap 0.2s var(--ease);
+  }
+  .project__link:hover { gap: 8px; }
+  /* Stretch the GitHub link across the whole card, so clicking anywhere on the
+     project opens its repo. Positioned relative to .project (the card). */
+  .project__link--cover::after {
+    content: ""; position: absolute; inset: 0; z-index: 1; border-radius: var(--radius);
+  }
+
+  .project__context { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); }
+
+  @media (max-width: 760px) {
+    .project--featured { grid-column: auto; }
+  }
+</style>

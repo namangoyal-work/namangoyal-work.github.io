@@ -1,14 +1,13 @@
 /**
- * projects.ts — everything shown on the Projects page (and the home page's
- * "Selected work" section).
+ * projects.ts — everything in the Projects section.
  *
  * To add a project: copy one object below and edit it.
- * - category controls which group it appears under on /projects/.
- * - featured: true also shows it in "Selected work" on the home page.
- * - links are optional; omit them and no link renders.
+ * - category controls which filter tab it shows under.
+ * - featured: true makes the card larger / highlighted.
+ * - links are optional; omit a link and its button simply won't render.
  */
 
-export type Category = "systems" | "hardware" | "quantum" | "ml";
+export type Category = "systems" | "quantum" | "ml" | "hardware";
 
 export interface ProjectLink {
   label: string;
@@ -25,27 +24,34 @@ export interface Project {
   links?: ProjectLink[];
 }
 
-/** Human-readable label for each category (used as group headings). */
-export const categoryLabels: Record<Category, string> = {
+/** Human-readable label for each category (used by the filter UI). */
+export const categoryLabels: Record<Category | "all", string> = {
+  all: "All",
   systems: "Systems & Performance",
-  hardware: "Hardware",
   quantum: "Quantum",
-  ml: "Machine Learning & Research",
+  ml: "ML & Research",
+  hardware: "Hardware",
 };
 
-/** Group order on the Projects page. */
-export const categoryOrder: Category[] = ["systems", "hardware", "quantum", "ml"];
-
 export const projects: Project[] = [
+    {
+    title: "FPGA Tick To Trade Pipeline",
+    category: "Systems & Performance",
+    featured: true,
+    blurb:
+      "An ultra-low latency high-frequency trading system implemented entirely on an FPGA for wire-speed execution. Features hardware-level protocol decoding, deterministic order encoding, and built-in fault tolerance with real-time heartbeat monitoring and data corruption handling.",
+    tags: ["SystemVerilog", "FPGA", "Formal Verification", "VerilogFPGALow-latencyHFT."],
+    context: "Independent · 2026",
+    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }],
+  },
   {
-    title: "FPGA Tick-to-Trade Pipeline",
+    title: "Low-Latency C++ Execution Engine",
     category: "systems",
     featured: true,
     blurb:
-      "A deterministic tick-to-trade engine implemented entirely in FPGA fabric — hardware-level protocol decoding, deterministic order encoding, and fail-closed fault handling with real-time heartbeat monitoring.",
-    tags: ["SystemVerilog", "FPGA", "Formal Verification", "Low-latency"],
-    context: "Independent · 2026",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }],
+      "A trading-style execution pipeline engineered for nanoseconds: zero-allocation architecture, lock-free SPSC ring buffers, SIMD prefetching, cache-locality tuning, and a hardware-aware scheduler with CPU core pinning and explicit memory ordering.",
+    tags: ["C++", "Lock-free", "SIMD", "Low-latency"],
+    context: "Independent · 2025",
   },
   {
     title: "Wire-Speed FPGA Network Parser",
@@ -68,17 +74,8 @@ export const projects: Project[] = [
     links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/KAN-PINN-Battery-SOH" }],
   },
   {
-    title: "Low-Latency C++ Execution Engine",
-    category: "systems",
-    blurb:
-      "A trading-style execution pipeline engineered for nanoseconds: zero-allocation architecture, lock-free SPSC ring buffers, SIMD prefetching, cache-locality tuning, and a hardware-aware scheduler with CPU core pinning and explicit memory ordering.",
-    tags: ["C++", "Lock-free", "SIMD", "Low-latency"],
-    context: "Independent · 2025",
-  },
-  {
     title: "Solovay–Kitaev Unitary Decomposer",
     category: "quantum",
-    featured: true,
     blurb:
       "A clean, high-performance implementation of the Solovay–Kitaev algorithm: recursive decomposition of SU(2) unitaries into a discrete gate set at O(log^2.71(1/ε)) complexity, with a precomputed base-case table and vectorized nearest-neighbor search.",
     tags: ["Python", "Numerical", "Quantum Compilers"],
@@ -113,6 +110,3 @@ export const projects: Project[] = [
     links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/UserRating" }],
   },
 ];
-
-/** Projects shown on the home page ("Selected work"). */
-export const featuredProjects = projects.filter((p) => p.featured);

@@ -1,0 +1,53 @@
+---
+import { projects, categoryLabels, type Category } from "../data/projects";
+import { site } from "../data/site";
+import ProjectCard from "./ProjectCard.astro";
+
+// Only show filter tabs for categories that actually have projects.
+const present = new Set<Category>(projects.map((p) => p.category));
+const tabs: ("all" | Category)[] = ["all", ...(["systems", "quantum", "ml", "hardware"] as Category[]).filter((c) => present.has(c))];
+---
+
+<section class="section" id="projects">
+  <div class="container">
+    <header class="section__head reveal">
+      <span class="eyebrow">03 — Projects</span>
+      <h2 class="section__title">Things I've built, from nanoseconds to qubits.</h2>
+      <p class="section__lead">A mix of independent work and coursework across systems, quantum computing, ML, and hardware. Filter by what interests you.</p>
+    </header>
+
+    <div class="filters reveal" role="tablist" aria-label="Filter projects">
+      {tabs.map((t, i) => (
+        <button class={`filter${i === 0 ? " is-active" : ""}`} data-filter={t} role="tab" aria-selected={i === 0 ? "true" : "false"}>
+          {categoryLabels[t]}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid" data-stagger>
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+
+    <p class="more reveal">
+      Everything else lives on <a href={site.socials.github} target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .filter {
+    font-size: 0.86rem; padding: 8px 16px; border-radius: var(--radius-pill);
+    border: 1px solid var(--border-strong); color: var(--text-muted);
+    transition: all 0.2s var(--ease);
+  }
+  .filter:hover { color: var(--text); border-color: var(--text); }
+  .filter.is-active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .more { margin-top: 28px; color: var(--text-muted); }
+  .more a { color: var(--accent-ink); font-weight: 500; }
+
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>

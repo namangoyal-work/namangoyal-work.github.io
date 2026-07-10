@@ -1,8 +1,8 @@
 /**
  * site.ts — global site configuration.
  *
- * This is the one file to edit for identity, links, and site-wide SEO.
- * Per-page titles/descriptions live in each file under src/pages/.
+ * This is the one file to edit for identity, links, and SEO.
+ * Everything else (components, structured data, meta tags) reads from here.
  */
 
 export const site = {
@@ -10,8 +10,13 @@ export const site = {
   /** Short role line used under the name and in the browser tab. */
   role: "Electrical Engineering @ IIT Delhi",
 
-  /** One-line positioning statement shown under the name on the home page. */
-  headline: "I build fast, correct systems — and research the hardware they run on.",
+  /** The single sentence that defines you. Shown large in the hero. */
+  headline:
+    "I build fast, correct systems — and research the hardware they run on.",
+
+  /** A supporting line for the hero. Keep it concrete, not boastful. */
+  subhead:
+    "Electrical Engineering at IIT Delhi, currently a research intern at CISPA working on hardware security. I focus on low-latency C++, quantum computing, and turning hard problems into clean code.",
 
   email: "namangoyal@tutamail.com",
   location: "New Delhi, India",
@@ -22,22 +27,11 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/namangoyalo",
   },
 
-  /**
-   * Top-level pages, in nav order. Each page under src/pages/ should have a
-   * matching entry here so the nav and footer stay in sync automatically.
-   */
-  nav: [
-    { href: "/", label: "About" },
-    { href: "/research/", label: "Research" },
-    { href: "/projects/", label: "Projects" },
-    { href: "/achievements/", label: "Honors" },
-  ],
-
-  /** Site-wide SEO defaults. Pages override title/description individually. */
+  /** SEO. `title` is the <title>; description is the search snippet. */
   seo: {
     title: "Naman Goyal — Systems, Hardware Security & Quant",
     description:
-      "Naman Goyal — Electrical Engineering at IIT Delhi (Dept Rank 1) and hardware-security research intern at CISPA. Builds low-latency C++ and FPGA systems, quantum simulators, and ML models.",
+      "Naman Goyal — Electrical Engineering at IIT Delhi and research intern at CISPA. I build low-latency C++ systems, quantum simulators, ML models, and FPGA hardware. Open to quant and research internships.",
     /** 1200×630 image used for link previews on social / chat apps. */
     ogImage: "/og-image.png",
     /** Helps search engines and rich results understand who you are. */
@@ -48,11 +42,11 @@ export const site = {
       "CISPA",
       "hardware security",
       "low latency C++",
-      "FPGA",
       "quantitative developer",
       "quant",
       "quantum computing",
       "machine learning",
+      "FPGA",
     ],
   },
 
