@@ -1,18 +1,20 @@
 ---
 import { site } from "../data/site";
 
+// Links are absolute ("/#about") so the nav also works from subpages
+// like /projects/. The scroll-spy in main.ts matches on the hash.
 const links = [
-  { href: "#about", label: "About" },
-  { href: "#research", label: "Research" },
-  { href: "#projects", label: "Projects" },
-  { href: "#achievements", label: "Achievements" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#research", label: "Research" },
+  { href: "/#projects", label: "Projects" },
+  { href: "/#achievements", label: "Achievements" },
+  { href: "/#contact", label: "Contact" },
 ];
 ---
 
 <header class="nav" data-nav>
   <div class="nav__inner container">
-    <a class="brand" href="#top" aria-label={`${site.name} — home`}>
+    <a class="brand" href="/#top" aria-label={`${site.name} — home`}>
       <span class="brand__mark">NG</span>
       <span class="brand__name">{site.name}</span>
     </a>

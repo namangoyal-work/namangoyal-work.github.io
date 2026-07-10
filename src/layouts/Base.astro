@@ -8,6 +8,15 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/space-grotesk";
 import "../styles/global.css";
 import Seo from "../components/Seo.astro";
+
+interface Props {
+  /** Per-page <title>; omit on the home page to use the site default. */
+  title?: string;
+  /** Per-page meta description; omit to use the site default. */
+  description?: string;
+}
+
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
@@ -16,7 +25,7 @@ import Seo from "../components/Seo.astro";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <Seo />
+    <Seo title={title} description={description} />
 
     {/* Set theme before first paint to avoid a flash of the wrong theme. */}
     <script is:inline>

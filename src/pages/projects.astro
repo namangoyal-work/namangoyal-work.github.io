@@ -1,0 +1,81 @@
+---
+/**
+ * projects.astro — the full project archive at /projects/.
+ * The home page shows only the featured work; this page lists everything,
+ * with the same card design and category filters.
+ */
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects, categoryLabels, type Category } from "../data/projects";
+import { site } from "../data/site";
+
+// Only show filter tabs for categories that actually have projects.
+const present = new Set<Category>(projects.map((p) => p.category));
+const tabs: ("all" | Category)[] = [
+  "all",
+  ...(["systems", "quantum", "ml", "hardware"] as Category[]).filter((c) => present.has(c)),
+];
+---
+
+<Base
+  title="Projects — Naman Goyal"
+  description="The full project archive of Naman Goyal: FPGA trading pipelines, low-latency C++ systems, quantum computing tools, and machine-learning research code."
+>
+  <Nav />
+  <main id="main" class="archive">
+    <section class="section" id="projects-archive">
+      <div class="container">
+        <header class="section__head reveal">
+          <span class="eyebrow">Projects — Full Archive</span>
+          <h2 class="section__title">Everything I've built.</h2>
+          <p class="section__lead">
+            Independent work, research, and coursework across systems, quantum computing, ML,
+            and hardware. The highlights live on the <a class="back" href="/#projects">home page</a>;
+            this is the complete list.
+          </p>
+        </header>
+
+        <div class="filters reveal" role="tablist" aria-label="Filter projects">
+          {tabs.map((t, i) => (
+            <button class={`filter${i === 0 ? " is-active" : ""}`} data-filter={t} role="tab" aria-selected={i === 0 ? "true" : "false"}>
+              {categoryLabels[t]}
+            </button>
+          ))}
+        </div>
+
+        <div class="grid" data-stagger>
+          {projects.map((p) => <ProjectCard project={p} />)}
+        </div>
+
+        <p class="more reveal">
+          Everything else lives on <a href={site.socials.github} target="_blank" rel="noopener">GitHub&nbsp;↗</a>
+        </p>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .archive { padding-top: var(--nav-h); }
+
+  .back { color: var(--accent-ink); font-weight: 500; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .filter {
+    font-size: 0.86rem; padding: 8px 16px; border-radius: var(--radius-pill);
+    border: 1px solid var(--border-strong); color: var(--text-muted);
+    transition: all 0.2s var(--ease);
+  }
+  .filter:hover { color: var(--text); border-color: var(--text); }
+  .filter.is-active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+  .more { margin-top: 28px; color: var(--text-muted); }
+  .more a { color: var(--accent-ink); font-weight: 500; }
+
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>

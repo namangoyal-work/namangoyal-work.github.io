@@ -91,7 +91,8 @@ function initScrollSpy(): void {
 
   const setActive = (id: string) => {
     document.querySelectorAll("[data-nav-menu] a").forEach((a) => {
-      a.classList.toggle("is-active", a.getAttribute("href") === `#${id}`);
+      // Nav hrefs are absolute ("/#about") so they work from subpages too.
+      a.classList.toggle("is-active", (a.getAttribute("href") ?? "").endsWith(`#${id}`));
     });
   };
 

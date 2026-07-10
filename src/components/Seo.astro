@@ -8,8 +8,18 @@
 import { site } from "../data/site";
 import { achievementPhases } from "../data/achievements";
 
+interface Props {
+  /** Per-page <title>; falls back to the site-wide default. */
+  title?: string;
+  /** Per-page meta description; falls back to the site-wide default. */
+  description?: string;
+}
+
+const { title = site.seo.title, description = site.seo.description } = Astro.props;
+
 const base = Astro.site?.href ?? "https://namangoyal-work.github.io/";
 const canonical = new URL(Astro.url.pathname, base).href;
+const isHome = Astro.url.pathname === "/";
 const ogImage = new URL(site.seo.ogImage, base).href;
 
 // Flatten the achievements data into schema.org Person.award entries, so the
@@ -47,24 +57,43 @@ const graph = {
       publisher: { "@id": `${base}#person` },
       inLanguage: "en",
     },
-    {
-      "@type": "ProfilePage",
-      "@id": canonical,
-      url: canonical,
-      name: site.seo.title,
-      isPartOf: { "@id": `${base}#website` },
-      // mainEntity is the field Google requires on a ProfilePage: it points to
-      // the Person the profile is about. `about` alone isn't enough.
-      mainEntity: { "@id": `${base}#person` },
-      about: { "@id": `${base}#person` },
-      inLanguage: "en",
-    },
+    // The home page is a ProfilePage about the Person (mainEntity is the
+    // field Google requires — `about` alone isn't enough). Subpages are
+    // plain WebPages with a breadcrumb back home.
+    isHome
+      ? {
+          "@type": "ProfilePage",
+          "@id": canonical,
+          url: canonical,
+          name: title,
+          isPartOf: { "@id": `${base}#website` },
+          mainEntity: { "@id": `${base}#person` },
+          about: { "@id": `${base}#person` },
+          inLanguage: "en",
+        }
+      : {
+          "@type": "WebPage",
+          "@id": canonical,
+          url: canonical,
+          name: title,
+          description,
+          isPartOf: { "@id": `${base}#website` },
+          about: { "@id": `${base}#person` },
+          inLanguage: "en",
+          breadcrumb: {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: base },
+              { "@type": "ListItem", position: 2, name: title, item: canonical },
+            ],
+          },
+        },
   ],
 };
 ---
 
-<title>{site.seo.title}</title>
-<meta name="description" content={site.seo.description} />
+<title>{title}</title>
+<meta name="description" content={description} />
 <meta name="author" content={site.name} />
 <meta name="keywords" content={site.seo.keywords.join(", ")} />
 <link rel="canonical" href={canonical} />
@@ -79,10 +108,10 @@ const graph = {
 <link rel="author" href={base} />
 
 <!-- Open Graph -->
-<meta property="og:type" content="profile" />
+<meta property="og:type" content={isHome ? "profile" : "website"} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:title" content={site.seo.title} />
-<meta property="og:description" content={site.seo.description} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:image" content={ogImage} />
@@ -93,8 +122,8 @@ const graph = {
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={site.seo.title} />
-<meta name="twitter:description" content={site.seo.description} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
 <!-- Icons & manifest -->
