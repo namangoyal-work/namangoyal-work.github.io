@@ -80,10 +80,10 @@ export const achievementPhases: AchievementPhase[] = [
               "Reached Platinum, the highest division of the USA Computing Olympiad, promoting with a perfect 1000/1000 (Rank 1) contest; separately placed Rank 1 in a round of Croatia's COCI.",
           },
           {
-            badge: "AIR 1",
+            badge: "Top 5",
             title: "Technothlon — International School Championship",
             detail:
-              "All India Rank 1 (Juniors) in IIT Guwahati's international championship of logic and applied problem-solving; Gold certificate, 2021.",
+              "Ranked among top 5 (Juniors) in IIT Guwahati's international championship of logic and applied problem-solving; Gold certificate, 2021.",
           },
           {
             badge: "Awardee",
