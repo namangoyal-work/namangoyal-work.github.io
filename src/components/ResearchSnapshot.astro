@@ -1,0 +1,40 @@
+---
+/**
+ * ResearchSnapshot.astro — a short research teaser on the home page that
+ * links to the full /research/ page. Pulls from research.ts.
+ */
+import { research } from "../data/research";
+---
+
+<section class="section" aria-labelledby="research-title">
+  <div class="container">
+    <header class="section__head">
+      <h2 class="section__title" id="research-title">Research</h2>
+    </header>
+
+    <article>
+      <h3 class="snap__title">
+        <a class="snap__link" href="/research/">{research.title}</a>
+      </h3>
+      <p class="snap__org">{research.org} · {research.period}</p>
+      <p class="snap__summary">{research.summary}</p>
+      <p><a class="link" href="/research/">Read more →</a></p>
+    </article>
+  </div>
+</section>
+
+<style>
+  .snap__title { font-size: 1.05rem; margin-bottom: 4px; }
+  .snap__link:hover { color: var(--accent-ink); }
+  .snap__org {
+    font-size: 0.88rem;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+  }
+  .snap__summary {
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    max-width: 68ch;
+    margin-bottom: 10px;
+  }
+</style>

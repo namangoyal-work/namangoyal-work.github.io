@@ -1,0 +1,57 @@
+---
+/**
+ * Page.astro — standard subpage layout: nav, a titled page header, the page
+ * content, and the footer. Used by every page except the home page (which
+ * composes its own sections directly on Base).
+ */
+import Base from "./Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+export interface Props {
+  /** Page heading, also used as the <title> unless seoTitle is set. */
+  title: string;
+  /** Meta description for this page. */
+  description: string;
+  /** One-sentence intro shown under the heading. */
+  lead?: string;
+}
+
+const { title, description, lead } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <Nav />
+  <main id="main">
+    <div class="container">
+      <header class="page-head">
+        <h1 class="page-title">{title}</h1>
+        {lead && <p class="page-lead">{lead}</p>}
+      </header>
+      <slot />
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  main {
+    padding-top: calc(var(--nav-h) + clamp(32px, 6vw, 56px));
+    padding-bottom: clamp(48px, 8vw, 80px);
+    min-height: 70vh;
+  }
+  .page-head {
+    margin-bottom: clamp(28px, 5vw, 44px);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-title {
+    font-size: clamp(1.7rem, 4vw, 2.1rem);
+    letter-spacing: -0.02em;
+  }
+  .page-lead {
+    color: var(--text-muted);
+    margin-top: 10px;
+    max-width: 62ch;
+  }
+</style>

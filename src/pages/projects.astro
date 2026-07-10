@@ -1,0 +1,53 @@
+---
+/**
+ * projects.astro — the full Projects page, grouped by category (no client-side
+ * filtering: every project is visible and crawlable). Content lives in
+ * src/data/projects.ts.
+ */
+import Page from "../layouts/Page.astro";
+import ProjectItem from "../components/ProjectItem.astro";
+import { projects, categoryLabels, categoryOrder } from "../data/projects";
+import { site } from "../data/site";
+
+const groups = categoryOrder
+  .map((c) => ({
+    label: categoryLabels[c],
+    items: projects.filter((p) => p.category === c),
+  }))
+  .filter((g) => g.items.length > 0);
+---
+
+<Page
+  title="Projects"
+  description="Projects by Naman Goyal: FPGA tick-to-trade and network-parsing pipelines, low-latency C++ systems, quantum computing tools, and machine-learning research code."
+  lead="A mix of independent work, research, and coursework. Almost everything links to a repository — the code is the real portfolio."
+>
+  {groups.map((g) => (
+    <section class="group" aria-label={g.label}>
+      <h2 class="group__title">{g.label}</h2>
+      <div class="group__list">
+        {g.items.map((p) => <ProjectItem project={p} />)}
+      </div>
+    </section>
+  ))}
+
+  <p class="more">
+    Everything else lives on
+    <a class="link" href={site.socials.github} target="_blank" rel="noopener">GitHub →</a>
+  </p>
+</Page>
+
+<style>
+  .group { margin-bottom: clamp(28px, 5vw, 44px); }
+  .group__title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .more { color: var(--text-muted); font-size: 0.95rem; }
+</style>

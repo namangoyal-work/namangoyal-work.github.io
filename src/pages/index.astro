@@ -1,24 +1,27 @@
 ---
+/**
+ * index.astro — the home page: who I am, what's new, highlights.
+ * The deep content lives on its own pages: /research/, /projects/,
+ * /achievements/.
+ */
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Research from "../components/Research.astro";
-import Projects from "../components/Projects.astro";
-import Achievements from "../components/Achievements.astro";
-import Contact from "../components/Contact.astro";
+import Intro from "../components/Intro.astro";
+import News from "../components/News.astro";
+import SelectedWork from "../components/SelectedWork.astro";
+import ResearchSnapshot from "../components/ResearchSnapshot.astro";
+import Background from "../components/Background.astro";
 import Footer from "../components/Footer.astro";
 ---
 
 <Base>
   <Nav />
   <main id="main">
-    <Hero />
-    <About />
-    <Research />
-    <Projects />
-    <Achievements />
-    <Contact />
+    <Intro />
+    <News />
+    <ResearchSnapshot />
+    <SelectedWork />
+    <Background />
   </main>
   <Footer />
 </Base>

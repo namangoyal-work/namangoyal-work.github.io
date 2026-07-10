@@ -1,0 +1,91 @@
+---
+/**
+ * achievements.astro — the Honors page: awards grouped by phase
+ * (University / Pre-University). Content lives in src/data/achievements.ts.
+ */
+import Page from "../layouts/Page.astro";
+import { achievementPhases } from "../data/achievements";
+---
+
+<Page
+  title="Honors & Awards"
+  description="Honors and awards earned by Naman Goyal: CISPA European AI & Cybersecurity Hackathon champion, INPhO and INAO gold medals, USACO Gold, INMO, Atlas Fellowship, and more."
+  lead="Recognition from olympiads, hackathons, and fellowships. Each entry says what the program actually is, so it makes sense even if you've never heard of it."
+>
+  {achievementPhases.map((phase) => (
+    <section class="phase" aria-label={phase.phase}>
+      <h2 class="phase__title">{phase.phase}</h2>
+      {phase.groups.map((group) => (
+        <div class="group">
+          {phase.groups.length > 1 && <h3 class="group__title">{group.heading}</h3>}
+          <ul class="list">
+            {group.items.map((a) => (
+              <li class="item">
+                <span class="badge">{a.badge}</span>
+                <div>
+                  <p class="item__title">{a.title}</p>
+                  <p class="item__detail">{a.detail}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </section>
+  ))}
+</Page>
+
+<style>
+  .phase { margin-bottom: clamp(32px, 5vw, 48px); }
+  .phase__title {
+    font-size: 1.15rem;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .group { margin-bottom: 28px; }
+  .group:last-child { margin-bottom: 0; }
+  .group__title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  /* Fixed badge column so every title starts at the same x, regardless of
+     how long the badge label is (e.g. "Distinction" vs "R2"). */
+  .item {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .badge {
+    display: inline-grid;
+    place-items: center;
+    width: 96px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-align: center;
+    white-space: nowrap;
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+  }
+  .item__title { font-weight: 600; font-size: 0.97rem; margin-bottom: 2px; }
+  .item__detail { color: var(--text-muted); font-size: 0.92rem; line-height: 1.55; }
+
+  @media (max-width: 560px) {
+    .item { grid-template-columns: 1fr; gap: 6px; }
+    .badge { width: auto; justify-self: start; }
+  }
+</style>

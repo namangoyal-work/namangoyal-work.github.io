@@ -1,90 +1,59 @@
-# Naman Goyal — Portfolio
+# namangoyal.me
 
-Personal portfolio, built with **Astro 5 + TypeScript**. Content lives in plain
-typed data files, so updating the site means editing a list — no framework
-knowledge required. The build outputs static HTML/CSS/JS that loads in
-milliseconds and is excellent for SEO.
+Personal site of **Naman Goyal** — [namangoyal.me](https://namangoyal.me).
+Built with [Astro 5](https://astro.build) + TypeScript. Static output, no
+client-side framework; the only JavaScript on the page is the theme toggle
+and the mobile menu.
 
-**Live:** https://namangoyal-work.github.io/
+## Pages
 
-## Run it locally
+| URL | Source | What it is |
+| --- | --- | --- |
+| `/` | `src/pages/index.astro` | Intro, news, research snapshot, selected work, background |
+| `/research/` | `src/pages/research.astro` | The CISPA study in full + other activities |
+| `/projects/` | `src/pages/projects.astro` | All projects, grouped by category |
+| `/achievements/` | `src/pages/achievements.astro` | Honors & awards by phase |
 
-```bash
-npm install      # once
-npm run dev      # start dev server at http://localhost:4321
-npm run build    # production build → ./dist
-npm run preview  # preview the production build
+## How to update (common tasks)
+
+All content lives in typed data files under `src/data/` — you almost never
+need to touch a component to change content.
+
+- **Add a news item** → prepend an entry in `src/data/news.ts`.
+- **Add a project** → add an object in `src/data/projects.ts`. Set
+  `featured: true` to also surface it in "Selected work" on the home page;
+  its `category` decides which group it appears under on `/projects/`.
+- **Add an award** → add an item in `src/data/achievements.ts` (it also
+  feeds the `Person.award` structured data automatically).
+- **Change bio / skills / education** → `src/data/about.ts`.
+- **Change name, links, nav, résumé path, SEO defaults** → `src/data/site.ts`.
+- **Update research** → `src/data/research.ts`.
+- **Add a page** → create `src/pages/<name>.astro` using the `Page` layout
+  (pass `title`, `description`, `lead`), then add it to `nav` in
+  `src/data/site.ts` so the header and footer pick it up.
+- **Replace the résumé** → overwrite `public/Naman_Goyal_Resume.pdf`.
+
+## SEO
+
+- Every page sets its own `<title>`, meta description, canonical URL, and
+  Open Graph card via `src/components/Seo.astro` (props flow through
+  `Base.astro` / `Page.astro`).
+- JSON-LD: `Person` + `WebSite` on every page, `ProfilePage` on the home
+  page, `WebPage` + `BreadcrumbList` on subpages. Awards sync from
+  `achievements.ts`.
+- Sitemap (`@astrojs/sitemap`) and `robots.txt` are generated/served
+  automatically; the canonical origin is set once in `astro.config.mjs`.
+
+## Develop & deploy
+
+```sh
+npm ci            # install
+npm run dev       # local dev server
+npm run check     # type-check (astro check)
+npm run build     # production build into dist/
 ```
 
-## Where everything lives
-
-```
-src/
-  data/          ← EDIT THESE to update content
-    site.ts          name, links, SEO, the hero headline
-    about.ts         bio paragraphs, education, skills
-    projects.ts      project list (add an object to add a project)
-    research.ts      CISPA research + activities
-    achievements.ts  olympiads, scholarships, honors
-  components/     ← UI building blocks (one file per section)
-  layouts/Base.astro   the HTML shell (fonts, <head>, theme)
-  scripts/main.ts      all interactions (theme, nav, reveal, form…)
-  styles/global.css    design tokens + shared styles
-public/          ← served as-is (résumé PDF, favicon, og-image, robots.txt)
-```
-
-### Common edits
-
-- **Add a project** → append one object to the array in `src/data/projects.ts`.
-  `category` is one of `systems | quantum | ml | hardware`; `featured: true`
-  makes the card span two columns; omit `links` and no buttons render.
-- **Add an achievement** → add an item under the right group in
-  `src/data/achievements.ts`.
-- **Change a link / your headline / SEO text** → `src/data/site.ts`.
-- **Swap the résumé** → replace `public/Naman_Goyal_Resume.pdf`.
-- **Collect contact-form submissions** → set `FORM_ENDPOINT` in
-  `src/scripts/main.ts` to a [Formspree](https://formspree.io) URL. Until then,
-  the form simply opens the visitor's email app.
-
-## Deploy (GitHub Pages, automatic)
-
-1. Push to the `main` branch of `namangoyal-work/namangoyal-work.github.io`.
-2. In the repo: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-3. The workflow in `.github/workflows/deploy.yml` builds and publishes on every push.
-
-## Custom domain
-
-1. Get a free domain via the **GitHub Student Developer Pack** (e.g. Namecheap
-   gives a free `.me` for a year, or try `.dev` / `.tech`).
-2. Add a file `public/CNAME` containing just the bare domain, e.g. `namangoyal.me`.
-3. Change `SITE` in `astro.config.mjs` and the host in `public/robots.txt` to match.
-4. Point the domain's DNS at GitHub Pages and enable HTTPS in repo settings.
-
-## Ranking #1 for your name (off-page checklist)
-
-On-page SEO is already done (semantic HTML, `Person` structured data, sitemap,
-canonical, OG). Rankings also need signals Google trusts:
-
-- Add the site URL to your **GitHub profile**, **LinkedIn → Contact info**, and
-  any other profiles. These backlinks matter a lot for a personal name query.
-- Submit the site to **Google Search Console**, add the sitemap
-  (`/sitemap-index.xml`), and click "Request indexing".
-- A **custom domain** with your name (e.g. `namangoyal.me`) ranks and brands far
-  better than a `github.io` subdomain.
-- Keep your name spelled consistently everywhere.
-
-## Regenerate the social image
-
-Edit `public/og-image.svg`, then render it to PNG:
-
-```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
-  --headless --disable-gpu --window-size=1200,630 \
-  --default-background-color=00000000 \
-  --screenshot="$PWD/public/og-image.png" "file://$PWD/public/og-image.svg"
-```
-
----
-
-Older versions of the site are preserved under `backup/` (`v1-static` =
-plain HTML/CSS/JS; the folder root = the original site).
+Deploys automatically to GitHub Pages on every push to `main`
+(`.github/workflows/` — "Deploy to GitHub Pages"). The custom domain is set
+in `public/CNAME`. After pushing, confirm the Actions run succeeds and spot
+check https://namangoyal.me/.

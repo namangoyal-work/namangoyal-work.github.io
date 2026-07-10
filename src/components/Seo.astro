@@ -1,68 +1,126 @@
 ---
 /**
  * Seo.astro — all <head> SEO in one place.
- * Meta tags, Open Graph, Twitter cards, identity (rel=me), and a JSON-LD
- * @graph (Person + WebSite + ProfilePage) so search engines can build a
- * rich result for the name "Naman Goyal".
+ *
+ * Every page passes its own title/description (via Base.astro), so each URL
+ * gets a unique <title>, meta description, canonical, and Open Graph card.
+ * A JSON-LD @graph carries the identity (Person + WebSite) on every page;
+ * the home page is additionally marked up as a ProfilePage, and subpages get
+ * a WebPage + BreadcrumbList so search engines understand the site tree.
  */
 import { site } from "../data/site";
+import { achievementPhases } from "../data/achievements";
 
-const base = Astro.site?.href ?? "https://namangoyal-work.github.io/";
+export interface Props {
+  /** Page <title>. The site name is appended automatically on subpages. */
+  title?: string;
+  description?: string;
+  /** Set true on pages that should stay out of search results (e.g. 404). */
+  noindex?: boolean;
+}
+
+const {
+  title = site.seo.title,
+  description = site.seo.description,
+  noindex = false,
+} = Astro.props;
+
+const base = Astro.site?.href ?? "https://namangoyal.me/";
 const canonical = new URL(Astro.url.pathname, base).href;
+const isHome = Astro.url.pathname === "/";
+const fullTitle = isHome || title === site.seo.title ? title : `${title} · ${site.name}`;
 const ogImage = new URL(site.seo.ogImage, base).href;
 
-const graph = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": `${base}#person`,
-      name: site.name,
-      url: base,
-      image: ogImage,
-      email: `mailto:${site.email}`,
-      jobTitle: "Research Intern",
-      description: site.seo.description,
-      worksFor: { "@type": "Organization", name: "CISPA Helmholtz Center for Information Security" },
-      alumniOf: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Delhi" },
-      homeLocation: { "@type": "Place", name: site.location },
-      knowsAbout: site.seo.keywords,
-      sameAs: [site.socials.github, site.socials.linkedin],
-    },
-    {
-      "@type": "WebSite",
-      "@id": `${base}#website`,
-      url: base,
-      name: site.name,
-      description: site.seo.description,
-      publisher: { "@id": `${base}#person` },
-      inLanguage: "en",
-    },
-    {
+// Flatten the achievements data into schema.org Person.award entries, so the
+// structured data stays in sync with the visible Honors page automatically.
+const awards = achievementPhases.flatMap((phase) =>
+  phase.groups.flatMap((g) => g.items.map((a) => `${a.title} — ${a.badge}`)),
+);
+
+const person = {
+  "@type": "Person",
+  "@id": `${base}#person`,
+  name: site.name,
+  url: base,
+  image: ogImage,
+  email: `mailto:${site.email}`,
+  jobTitle: "Research Intern",
+  description: site.seo.description,
+  worksFor: {
+    "@type": "Organization",
+    name: "CISPA Helmholtz Center for Information Security",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Indian Institute of Technology Delhi",
+  },
+  homeLocation: { "@type": "Place", name: site.location },
+  knowsAbout: site.seo.keywords,
+  award: awards,
+  sameAs: [site.socials.github, site.socials.linkedin],
+};
+
+const webSite = {
+  "@type": "WebSite",
+  "@id": `${base}#website`,
+  url: base,
+  name: site.name,
+  description: site.seo.description,
+  publisher: { "@id": `${base}#person` },
+  inLanguage: "en",
+};
+
+// Home page → ProfilePage about the Person (Google requires mainEntity).
+// Subpages → plain WebPage + a BreadcrumbList back to home.
+const pageNode = isHome
+  ? {
       "@type": "ProfilePage",
       "@id": canonical,
       url: canonical,
-      name: site.seo.title,
+      name: fullTitle,
       isPartOf: { "@id": `${base}#website` },
-      // mainEntity is the field Google requires on a ProfilePage: it points to
-      // the Person the profile is about. `about` alone isn't enough.
       mainEntity: { "@id": `${base}#person` },
       about: { "@id": `${base}#person` },
       inLanguage: "en",
-    },
-  ],
+    }
+  : {
+      "@type": "WebPage",
+      "@id": canonical,
+      url: canonical,
+      name: fullTitle,
+      description,
+      isPartOf: { "@id": `${base}#website` },
+      about: { "@id": `${base}#person` },
+      inLanguage: "en",
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: base },
+          { "@type": "ListItem", position: 2, name: title, item: canonical },
+        ],
+      },
+    };
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [person, webSite, pageNode],
 };
 ---
 
-<title>{site.seo.title}</title>
-<meta name="description" content={site.seo.description} />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
 <meta name="author" content={site.name} />
 <meta name="keywords" content={site.seo.keywords.join(", ")} />
 <link rel="canonical" href={canonical} />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta
+  name="robots"
+  content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"}
+/>
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#08080b" media="(prefers-color-scheme: dark)" />
-{site.verification.google && <meta name="google-site-verification" content={site.verification.google} />}
+<meta name="theme-color" content="#0e0f12" media="(prefers-color-scheme: dark)" />
+{site.verification.google && (
+  <meta name="google-site-verification" content={site.verification.google} />
+)}
 
 <!-- Identity: rel=me links help search engines connect your profiles. -->
 <link rel="me" href={site.socials.github} />
@@ -70,10 +128,10 @@ const graph = {
 <link rel="author" href={base} />
 
 <!-- Open Graph -->
-<meta property="og:type" content="profile" />
+<meta property="og:type" content={isHome ? "profile" : "website"} />
 <meta property="og:locale" content="en_US" />
-<meta property="og:title" content={site.seo.title} />
-<meta property="og:description" content={site.seo.description} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:image" content={ogImage} />
@@ -84,8 +142,8 @@ const graph = {
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={site.seo.title} />
-<meta name="twitter:description" content={site.seo.description} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
 <!-- Icons & manifest -->

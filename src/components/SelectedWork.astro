@@ -1,0 +1,24 @@
+---
+/**
+ * SelectedWork.astro — the home page's project highlights. Shows every
+ * project with `featured: true` in projects.ts and links to the full list.
+ */
+import { featuredProjects } from "../data/projects";
+import ProjectItem from "./ProjectItem.astro";
+---
+
+<section class="section" aria-labelledby="work-title">
+  <div class="container">
+    <header class="section__head">
+      <h2 class="section__title" id="work-title">Selected work</h2>
+      <p class="section__lead">
+        Highlights across low-latency systems, hardware, quantum computing, and ML.
+        <a class="link" href="/projects/">All projects →</a>
+      </p>
+    </header>
+
+    <div class="list">
+      {featuredProjects.map((p) => <ProjectItem project={p} />)}
+    </div>
+  </div>
+</section>
