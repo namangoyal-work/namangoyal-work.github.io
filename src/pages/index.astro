@@ -1,24 +1,105 @@
 ---
+/**
+ * index.astro — the home page: who I am, what's happening, where to go next.
+ * Short by design. The depth lives on /research, /projects and /cv.
+ */
 import Base from "../layouts/Base.astro";
-import Nav from "../components/Nav.astro";
-import Hero from "../components/Hero.astro";
-import About from "../components/About.astro";
-import Research from "../components/Research.astro";
-import Projects from "../components/Projects.astro";
-import Achievements from "../components/Achievements.astro";
-import Contact from "../components/Contact.astro";
-import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+import { news } from "../data/news";
+import { researchEntries } from "../data/research";
+import { projects } from "../data/projects";
+
+const featuredResearch = researchEntries.slice(0, 2);
+const featuredProjects = projects.slice(0, 3);
 ---
 
 <Base>
-  <Nav />
-  <main id="main">
-    <Hero />
-    <About />
-    <Research />
-    <Projects />
-    <Achievements />
-    <Contact />
-  </main>
-  <Footer />
+  <section>
+    <h1 class="text-[2rem] sm:text-[2.4rem]">{site.name}</h1>
+    <p class="mt-2 font-mono text-[0.82rem] text-muted">{site.role}</p>
+    <p class="font-mono text-[0.82rem] text-faint">{site.status}</p>
+
+    <div class="mt-8 space-y-4 text-[1rem] leading-[1.75] text-muted">
+      <p>
+        I'm a third-year Electrical Engineering student at <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">IIT Delhi</span>,
+        ranked first in my department. My research is in <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">quantum computing</span>;
+        before that I worked on hardware security at <a class="link" href="/research">CISPA Helmholtz Center</a>, grading 131 open-source
+        RISC-V cores against their own security claims.
+      </p>
+      <p>
+        Outside research I build low-latency systems — execution paths in C++ and data planes in FPGA fabric. Next
+        summer I join <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Virtu Financial</span> as a quantitative
+        software engineering intern.
+      </p>
+    </div>
+
+    <p class="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-[0.88rem]">
+      <a class="link" href={`mailto:${site.email}`}>Email</a>
+      <a class="link" href={site.socials.github} target="_blank" rel="noopener">GitHub</a>
+      <a class="link" href={site.socials.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      <a class="link" href="/resume">Résumé</a>
+    </p>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="label border-b rule pb-2">Recent</h2>
+    <ul class="mt-5 space-y-4">
+      {
+        news.map((n) => (
+          <li class="grid grid-cols-[5.5rem_1fr] gap-x-3 text-[0.94rem] max-sm:grid-cols-1 max-sm:gap-y-0.5">
+            <span class="pt-0.5 font-mono text-[0.76rem] text-faint">{n.date}</span>
+            <span class="text-muted">
+              {n.text}
+              {n.href && (
+                <>
+                  {" "}
+                  <a class="link" href={n.href}>
+                    More
+                  </a>
+                </>
+              )}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="label border-b rule pb-2">Research</h2>
+    <ul class="mt-5 space-y-5">
+      {
+        featuredResearch.map((r) => (
+          <li>
+            <a class="group block" href="/research">
+              <h3 class="text-[1rem] font-semibold group-hover:underline">{r.title}</h3>
+              <p class="mt-0.5 text-[0.88rem] text-faint">
+                {r.org} · {r.period}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 text-[0.88rem]">
+      <a class="link" href="/research">All research →</a>
+    </p>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="label border-b rule pb-2">Selected work</h2>
+    <ul class="mt-5 space-y-5">
+      {
+        featuredProjects.map((p) => (
+          <li>
+            <h3 class="text-[1rem] font-semibold">{p.title}</h3>
+            <p class="mt-0.5 text-[0.92rem] text-muted">{p.blurb.split(":")[0]}.</p>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 text-[0.88rem]">
+      <a class="link" href="/projects">All projects →</a>
+    </p>
+  </section>
 </Base>

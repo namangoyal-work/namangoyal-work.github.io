@@ -1,167 +1,101 @@
-/* =========================================================================
-   global.css — design tokens, reset, typography, shared primitives.
-   Component-specific styles live (scoped) inside their .astro components.
-   ========================================================================= */
+@import "tailwindcss";
 
-/* ---- Design tokens: light (default) ---- */
-:root {
-  color-scheme: light;
+/* Dark mode is driven by a data-theme attribute (set before first paint in
+   Base.astro), not by the media query alone — so the toggle can override the
+   system preference and the choice persists. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-  --bg: #ffffff;
-  --bg-soft: #f7f7f5;          /* paper, not blue-grey */
-  --surface: #ffffff;
-  --surface-2: #fbfbfa;
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 
-  --text: #111113;
-  --text-muted: #56565c;
-  --text-faint: #8b8b91;
+  /* Ink on paper. Greyscale carries the whole design; the one blue is for
+     links only, so a coloured word always means "this is clickable". */
+  --color-paper: #ffffff;
+  --color-ink: #17171a;
+  --color-muted: #56565e;
+  --color-faint: #8e8e97;
+  --color-rule: #e6e6e9;
+  --color-link: #1a4fb4;
 
-  --border: rgba(17, 17, 19, 0.11);
-  --border-strong: rgba(17, 17, 19, 0.22);
-
-  /* One restrained ink. Used for links and small marks — never for fills,
-     glows or gradients. Colour is information here, not decoration. */
-  --accent: #1e3a6e;
-  --accent-ink: #1e3a6e;
-  --accent-2: #1e3a6e;
-  --accent-soft: rgba(30, 58, 110, 0.08);
-  --accent-glow: transparent;
-
-  --ok: #1a7f4b;
-  --err: #b3261e;
-
-  /* Separation comes from hairlines, not elevation. */
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --ring: 0 0 0 3px var(--accent-soft);
-
-  /* One typeface. Inter for everything, monospace for metadata and numbers. */
-  --font-display: "Inter Variable", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-sans: "Inter Variable", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, monospace;
-
-  --maxw: 1080px;
-  --nav-h: 64px;
-  --radius: 3px;
-  --radius-sm: 2px;
-  --radius-pill: 2px;
-
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --color-paper-dark: #0e0e10;
+  --color-ink-dark: #ececee;
+  --color-muted-dark: #9c9ca4;
+  --color-faint-dark: #6c6c74;
+  --color-rule-dark: #26262b;
+  --color-link-dark: #8fb2ee;
 }
 
-/* ---- Design tokens: dark ---- */
-:root[data-theme="dark"] {
-  color-scheme: dark;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
-  --bg: #0d0d0e;
-  --bg-soft: #121213;
-  --surface: #121213;
-  --surface-2: #161617;
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
 
-  --text: #ededee;
-  --text-muted: #9d9da3;
-  --text-faint: #6e6e74;
+  [data-theme="dark"] body {
+    background: var(--color-paper-dark);
+    color: var(--color-ink-dark);
+  }
 
-  --border: rgba(255, 255, 255, 0.11);
-  --border-strong: rgba(255, 255, 255, 0.22);
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    line-height: 1.25;
+  }
 
-  --accent: #9db4d8;
-  --accent-ink: #9db4d8;
-  --accent-2: #9db4d8;
-  --accent-soft: rgba(157, 180, 216, 0.10);
-  --accent-glow: transparent;
+  a { color: inherit; text-decoration: none; }
 
-  --ok: #5fbf8a;
-  --err: #e08585;
+  ::selection { background: var(--color-ink); color: var(--color-paper); }
+  [data-theme="dark"] ::selection { background: var(--color-ink-dark); color: var(--color-paper-dark); }
 
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
+  :focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; border-radius: 2px; }
+  [data-theme="dark"] :focus-visible { outline-color: var(--color-link-dark); }
 }
 
-/* ---- Reset ---- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 16px); }
-body {
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  transition: background 0.4s var(--ease), color 0.4s var(--ease);
-}
-h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; letter-spacing: -0.018em; font-weight: 600; }
-/* Numbers line up in columns — they are data, not decoration. */
-body { font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1, "cv05" 1; }
-a { color: inherit; text-decoration: none; }
-img, svg, canvas { display: block; max-width: 100%; }
-button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
-::selection { background: var(--text); color: var(--bg); }
+@layer components {
+  /* A text link inside prose: underlined, offset, blue. Used sparingly. */
+  .link {
+    color: var(--color-link);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2.5px;
+    text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
+    transition: text-decoration-color 0.15s ease;
+  }
+  .link:hover { text-decoration-color: currentColor; }
+  [data-theme="dark"] .link { color: var(--color-link-dark); }
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  /* Small uppercase section label. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+  [data-theme="dark"] .label { color: var(--color-faint-dark); }
 
-/* ---- Layout primitives ---- */
-.container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
+  .rule { border-color: var(--color-rule); }
+  [data-theme="dark"] .rule { border-color: var(--color-rule-dark); }
 
-.section { padding-block: clamp(64px, 9vw, 120px); position: relative; }
-.section--alt { background: var(--bg-soft); }
+  .text-muted { color: var(--color-muted); }
+  [data-theme="dark"] .text-muted { color: var(--color-muted-dark); }
 
-.eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.10em;
-  text-transform: uppercase; color: var(--text-faint);
-}
-.section__head { margin-bottom: clamp(28px, 4vw, 44px); padding-bottom: 20px; border-bottom: 1px solid var(--border); }
-.section__title { font-size: clamp(1.55rem, 3.4vw, 2.1rem); margin-top: 10px; }
-.section__lead { color: var(--text-muted); margin-top: 14px; max-width: 62ch; font-size: 1rem; }
-
-/* ---- Buttons ---- */
-.btn {
-  --btn-bg: transparent; --btn-fg: var(--text); --btn-bd: var(--border-strong);
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 11px 20px; border-radius: var(--radius);
-  font-size: 0.9rem; font-weight: 500; white-space: nowrap;
-  background: var(--btn-bg); color: var(--btn-fg); border: 1px solid var(--btn-bd);
-  transition: background 0.18s var(--ease), border-color 0.18s var(--ease), color 0.18s var(--ease);
-}
-.btn--primary { --btn-bg: var(--text); --btn-fg: var(--bg); --btn-bd: var(--text); }
-.btn--primary:hover { --btn-bg: transparent; --btn-fg: var(--text); }
-.btn--ghost:hover { --btn-bd: var(--text); }
-.btn--sm { padding: 8px 16px; font-size: 0.85rem; }
-
-/* ---- Chips / tags ---- */
-.chip {
-  font-size: 0.8rem; padding: 5px 11px; border-radius: var(--radius);
-  background: transparent; border: 1px solid var(--border); color: var(--text-muted);
-  transition: border-color 0.18s var(--ease), color 0.18s var(--ease);
-}
-.chip:hover { color: var(--text); border-color: var(--border-strong); }
-
-/* ---- Reveal-on-scroll ---- */
-.reveal { opacity: 0; transform: translateY(10px); transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out); }
-.reveal.is-in { opacity: 1; transform: none; }
-[data-stagger] > * { opacity: 0; transform: translateY(8px); transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out); }
-[data-stagger].is-in > * { opacity: 1; transform: none; }
-
-/* ---- Accessibility & motion ---- */
-.skip-link {
-  position: fixed; left: 12px; top: -100px; z-index: 300;
-  background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: var(--radius);
-  transition: top 0.2s var(--ease);
-}
-.skip-link:focus { top: 12px; }
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  .text-faint { color: var(--color-faint); }
+  [data-theme="dark"] .text-faint { color: var(--color-faint-dark); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
-  .reveal, [data-stagger] > * { opacity: 1 !important; transform: none !important; }
 }

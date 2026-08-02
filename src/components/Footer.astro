@@ -3,30 +3,26 @@ import { site } from "../data/site";
 
 const links = [
   { label: "Email", href: `mailto:${site.email}` },
-  { label: "LinkedIn", href: site.socials.linkedin },
   { label: "GitHub", href: site.socials.github },
-  { label: "Résumé", href: site.resume },
+  { label: "LinkedIn", href: site.socials.linkedin },
+  { label: "Résumé", href: "/resume" },
 ];
 ---
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <a class="footer__name" href="#top">{site.name}</a>
-    <nav class="footer__links" aria-label="Footer">
-      {links.map((l) => (
-        <a href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noopener">{l.label}</a>
-      ))}
-    </nav>
-    <p class="footer__copy">© <span id="year">2026</span> {site.name} · Built with Astro.</p>
-  </div>
+<footer class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t rule py-6 text-[0.8rem]">
+  <nav class="flex flex-wrap gap-x-5 gap-y-1" aria-label="Footer">
+    {
+      links.map((l) => (
+        <a
+          class="text-muted transition-colors hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)]"
+          href={l.href}
+          target={l.href.startsWith("http") ? "_blank" : undefined}
+          rel={l.href.startsWith("http") ? "noopener" : undefined}
+        >
+          {l.label}
+        </a>
+      ))
+    }
+  </nav>
+  <p class="font-mono text-[0.7rem] text-faint">© 2026 {site.name}</p>
 </footer>
-
-<style>
-  .footer { border-top: 1px solid var(--border); padding-block: 40px; }
-  .footer__inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-  .footer__name { font-family: var(--font-display); font-weight: 600; }
-  .footer__links { display: flex; gap: 20px; }
-  .footer__links a { font-size: 0.9rem; color: var(--text-muted); transition: color 0.2s var(--ease); }
-  .footer__links a:hover { color: var(--accent-ink); }
-  .footer__copy { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); }
-</style>

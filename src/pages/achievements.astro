@@ -1,0 +1,44 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import { achievementPhases } from "../data/achievements";
+---
+
+<Base
+  title="Achievements — Naman Goyal"
+  description="Awards and honours: CISPA European AI & Cybersecurity Hackathon champion, Atlassian FastTrack winner, Dept. Rank 1 at IIT Delhi, USACO Gold, INPhO and INAO golds, INMO."
+>
+  <PageHead title="Achievements" lead="Awards, olympiads and honours — university first, then school." />
+
+  <div class="space-y-14">
+    {
+      achievementPhases.map((phase) => (
+        <section>
+          <h2 class="label border-b rule pb-2">{phase.phase}</h2>
+
+          <div class="mt-6 space-y-10">
+            {phase.groups.map((g) => (
+              <div>
+                <h3 class="text-[0.95rem] font-semibold">{g.heading}</h3>
+
+                <ul class="mt-4 space-y-5">
+                  {g.items.map((a) => (
+                    <li class="grid grid-cols-[7rem_1fr] gap-x-4 max-sm:grid-cols-1 max-sm:gap-y-1">
+                      <span class="pt-1 font-mono text-[0.72rem] uppercase tracking-wider text-faint">
+                        {a.badge}
+                      </span>
+                      <div>
+                        <p class="text-[0.97rem] font-medium">{a.title}</p>
+                        <p class="mt-1 text-[0.92rem] leading-[1.7] text-muted">{a.detail}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))
+    }
+  </div>
+</Base>

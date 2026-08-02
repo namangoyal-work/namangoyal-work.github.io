@@ -1,112 +1,65 @@
 /**
- * projects.ts — everything in the Projects section.
+ * projects.ts — selected work only.
  *
- * To add a project: copy one object below and edit it.
- * - category controls which filter tab it shows under.
- * - featured: true makes the card larger / highlighted.
- * - links are optional; omit a link and its button simply won't render.
+ * Deliberately short. This page lists the handful of projects worth a
+ * recruiter's attention; everything else lives on GitHub and is linked once
+ * at the bottom of the page. A long list dilutes the good entries — if you
+ * wouldn't defend it in an interview, it doesn't belong here.
  */
-
-export type Category = "systems" | "quantum" | "ml" | "hardware";
-
-export interface ProjectLink {
-  label: string;
-  href: string;
-}
 
 export interface Project {
   title: string;
-  category: Category;
-  featured?: boolean;
+  /** One line, shown next to the title. */
+  kind: string;
+  year: string;
   blurb: string;
   tags: string[];
-  context: string; // e.g. "Independent · Jul 2025" or "Course · Prof. X"
-  links?: ProjectLink[];
+  repo?: string;
 }
-
-/** Human-readable label for each category (used by the filter UI). */
-export const categoryLabels: Record<Category | "all", string> = {
-  all: "All",
-  systems: "Systems & Performance",
-  quantum: "Quantum",
-  ml: "ML & Research",
-  hardware: "Hardware",
-};
 
 export const projects: Project[] = [
   {
     title: "FPGA Tick-to-Trade Pipeline",
-    category: "systems",
-    featured: true,
+    kind: "Independent",
+    year: "2026",
     blurb:
-      "An ultra-low latency high-frequency trading system implemented entirely on an FPGA for wire-speed execution. Features hardware-level protocol decoding, deterministic order encoding, and built-in fault tolerance with real-time heartbeat monitoring and data corruption handling.",
-    tags: ["SystemVerilog", "FPGA", "Formal Verification", "Low-latency"],
-    context: "Independent · 2026",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-tick-to-trade" }],
+      "An ultra-low-latency trading system implemented entirely in FPGA fabric for wire-speed execution: hardware protocol decoding, deterministic order encoding, and fault tolerance with real-time heartbeat monitoring and corruption handling.",
+    tags: ["SystemVerilog", "FPGA", "Formal verification", "Low latency"],
+    repo: "https://github.com/namangoyal-work/fpga-tick-to-trade",
   },
   {
     title: "Low-Latency C++ Execution Engine",
-    category: "systems",
-    featured: true,
+    kind: "Independent",
+    year: "2025",
     blurb:
-      "A trading-style execution pipeline engineered for nanoseconds: zero-allocation architecture, lock-free SPSC ring buffers, SIMD prefetching, cache-locality tuning, and a hardware-aware scheduler with CPU core pinning and explicit memory ordering.",
-    tags: ["C++", "Lock-free", "SIMD", "Low-latency"],
-    context: "Independent · 2025",
+      "A trading-style execution pipeline engineered for nanoseconds: zero-allocation architecture, lock-free SPSC ring buffers, SIMD prefetching, cache-locality tuning, and a hardware-aware scheduler with core pinning and explicit memory ordering.",
+    tags: ["C++", "Lock-free", "SIMD", "Low latency"],
   },
   {
     title: "Wire-Speed FPGA Network Parser",
-    category: "hardware",
-    featured: true,
+    kind: "Independent",
+    year: "2026",
     blurb:
-      "A wire-speed MAC/IP/UDP header parser with a fixed-latency Level-1 trigger, written in SystemVerilog. Formally verified with SymbiYosys and adversarially tested with a cocotb + scapy bench that fires malformed and edge-case packets through the pipeline.",
-    tags: ["SystemVerilog", "FPGA", "Formal Verification", "cocotb"],
-    context: "Independent · 2026",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/fpga-net-parser" }],
-  },
-  {
-    title: "KAN-PINN Battery State-of-Health",
-    category: "ml",
-    featured: true,
-    blurb:
-      "A hybrid Kolmogorov–Arnold / physics-informed neural network for lithium-ion battery SOH estimation, embedding the Verhulst degradation model as a physics constraint and trained with a custom augmented-Lagrangian framework for stability.",
-    tags: ["PyTorch", "KAN", "PINN", "Physics-ML"],
-    context: "Independent · 2025",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/KAN-PINN-Battery-SOH" }],
+      "A wire-speed MAC/IP/UDP header parser with a fixed-latency Level-1 trigger. Formally verified with SymbiYosys and adversarially tested with a cocotb + scapy bench that fires malformed and edge-case packets through the pipeline.",
+    tags: ["SystemVerilog", "FPGA", "SymbiYosys", "cocotb"],
+    repo: "https://github.com/namangoyal-work/fpga-net-parser",
   },
   {
     title: "Solovay–Kitaev Unitary Decomposer",
-    category: "quantum",
+    kind: "Independent",
+    year: "2026",
     blurb:
-      "A clean, high-performance implementation of the Solovay–Kitaev algorithm: recursive decomposition of SU(2) unitaries into a discrete gate set at O(log^2.71(1/ε)) complexity, with a precomputed base-case table and vectorized nearest-neighbor search.",
-    tags: ["Python", "Numerical", "Quantum Compilers"],
-    context: "Independent · 2026",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/unitary-decomposer" }],
+      "Recursive decomposition of SU(2) unitaries into a discrete gate set at O(log^2.71(1/ε)) complexity, with a precomputed base-case table and vectorised nearest-neighbour search.",
+    tags: ["Python", "Quantum compilers", "Numerical"],
+    repo: "https://github.com/namangoyal-work/unitary-decomposer",
   },
   {
-    title: "QicQacQoe — Quantum Tic-Tac-Toe",
-    category: "quantum",
+    title: "KAN-PINN Battery State-of-Health",
+    kind: "Independent",
+    year: "2025",
     blurb:
-      "A 13-qubit quantum game simulator supporting configurable states and concurrent gates (Hadamard, CNOT, measurement), with continuous quantum-state analysis to evaluate win conditions across superposition and entanglement.",
-    tags: ["Python", "Qiskit", "Quantum"],
-    context: "Course · Prof. Rajendra Kumar · 2026",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/QicQacQoe" }],
-  },
-  {
-    title: "Automated Retinal Segmentation",
-    category: "ml",
-    blurb:
-      "A U-Net pipeline for SD-OCT retinal layer segmentation with GPU acceleration and sub-pixel accuracy, improved through data augmentation and post-processing.",
-    tags: ["Python", "U-Net", "Computer Vision"],
-    context: "Research · 2025",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/Automated-Retinal-Segmentation" }],
-  },
-  {
-    title: "UserRating — NLP Sentiment",
-    category: "ml",
-    blurb:
-      "An NLP system that predicts user ratings from free-text feedback: tokenization, feature extraction, and sentiment analysis, tuned with hyperparameter search and cross-validation.",
-    tags: ["Python", "NLP", "ML"],
-    context: "Independent · 2025",
-    links: [{ label: "GitHub", href: "https://github.com/namangoyal-work/UserRating" }],
+      "A hybrid Kolmogorov–Arnold / physics-informed neural network for lithium-ion battery SOH estimation, embedding the Verhulst degradation model as a physics constraint and trained with a custom augmented-Lagrangian framework.",
+    tags: ["PyTorch", "KAN", "PINN", "Physics-ML"],
+    repo: "https://github.com/namangoyal-work/KAN-PINN-Battery-SOH",
   },
 ];

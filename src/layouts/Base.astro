@@ -1,20 +1,21 @@
 ---
 /**
- * Base.astro — the HTML shell shared by every page.
- * Imports fonts + global styles, sets the theme before paint, and mounts
- * the single client script that powers interactions.
+ * Base.astro — the shell every page shares.
+ *
+ * One column, ~700px, centred. All hierarchy comes from type size, weight and
+ * hairline rules; there are no cards, shadows or gradients anywhere in the
+ * design. Navigation is text. This is a reading layout, not a landing page.
  */
 import "@fontsource-variable/inter";
-import "@fontsource-variable/space-grotesk";
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import Seo from "../components/Seo.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
-  /** Per-page <title>; omit on the home page to use the site default. */
   title?: string;
-  /** Per-page meta description; omit to use the site default. */
   description?: string;
-  /** Keep this page out of search results. */
   noindex?: boolean;
 }
 
@@ -28,8 +29,9 @@ const { title, description, noindex } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <Seo title={title} description={description} noindex={noindex} />
+    <ClientRouter />
 
-    {/* Set theme before first paint to avoid a flash of the wrong theme. */}
+    {/* Set the theme before first paint so there is no flash of the wrong one. */}
     <script is:inline>
       (() => {
         try {
@@ -44,8 +46,46 @@ const { title, description, noindex } = Astro.props;
   </head>
 
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <slot />
-    <script src="../scripts/main.ts"></script>
+    <a
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-[var(--color-ink)] focus:px-4 focus:py-2 focus:text-[var(--color-paper)]"
+      href="#main">Skip to content</a
+    >
+
+    <div class="mx-auto flex min-h-screen w-full max-w-[46rem] flex-col px-6 sm:px-8">
+      <Nav />
+      <main id="main" class="flex-1 pb-24 pt-12 sm:pt-16">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script>
+      // Theme toggle. Re-bound after every view transition, since Astro swaps
+      // the document body and listeners on old nodes go with it.
+      const apply = () => {
+        const btn = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+        if (!btn || btn.dataset.bound) return;
+        btn.dataset.bound = "1";
+        btn.addEventListener("click", () => {
+          const root = document.documentElement;
+          const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          root.setAttribute("data-theme", next);
+          try {
+            localStorage.setItem("theme", next);
+          } catch {
+            /* private mode — the choice just won't persist */
+          }
+        });
+      };
+      apply();
+      document.addEventListener("astro:after-swap", () => {
+        // The inline head script does not re-run on client-side navigation.
+        try {
+          const saved = localStorage.getItem("theme");
+          if (saved) document.documentElement.setAttribute("data-theme", saved);
+        } catch {}
+        apply();
+      });
+    </script>
   </body>
 </html>
