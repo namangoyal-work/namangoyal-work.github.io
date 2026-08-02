@@ -11,7 +11,7 @@ export const site = {
   role: "Electrical Engineering, IIT Delhi \u00B7 Dept. Rank 1 \u00B7 CGPA 9.22",
 
   /** Current position. Facts, stated plainly — no tagline. */
-  status: "Incoming Quantitative Software Engineer Intern \u00B7 Virtu Financial \u00B7 Summer 2027",
+  status: "Incoming Software Engineering Intern \u00B7 Virtu Financial \u00B7 Summer 2027",
 
   email: "namangoyal@tutamail.com",
   location: "New Delhi, India",
@@ -36,9 +36,9 @@ export const site = {
 
   /** SEO. `title` is the <title>; description is the search snippet. */
   seo: {
-    title: "Naman Goyal — IIT Delhi | Low-Latency Systems & Quant",
+    title: "Naman Goyal — IIT Delhi | Quantum Computing & Low-Latency Systems",
     description:
-      "Naman Goyal — Electrical Engineering at IIT Delhi, Dept Rank 1, incoming quantitative software engineering intern at Virtu Financial. Low-latency C++, FPGA, and hardware-security research.",
+      "Naman Goyal — Electrical Engineering at IIT Delhi, Dept Rank 1. Quantum computing research, hardware security at CISPA, and low-latency C++ / FPGA systems. Incoming software engineering intern at Virtu Financial.",
     /** 1200×630 image used for link previews on social / chat apps. */
     ogImage: "/og-image.png",
     /** Helps search engines and rich results understand who you are. */
@@ -48,8 +48,8 @@ export const site = {
       "IIT Delhi",
       "Electrical Engineering",
       "Virtu Financial",
-      "quantitative developer",
-      "quant developer",
+      "software engineer",
+      "quantum computing research",
       "low latency C++",
       "high frequency trading systems",
       "tick to trade",

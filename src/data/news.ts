@@ -17,7 +17,7 @@ export interface NewsItem {
 export const news: NewsItem[] = [
   {
     date: "Aug 2026",
-    text: "Joining Virtu Financial as a Quantitative Software Engineering Intern for Summer 2027.",
+    text: "Joining Virtu Financial as a Software Engineering Intern for Summer 2027.",
   },
   {
     date: "Aug 2026",

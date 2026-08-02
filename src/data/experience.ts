@@ -18,7 +18,7 @@ export interface Role {
 export const experience: Role[] = [
   {
     org: "Virtu Financial",
-    title: "Quantitative Software Engineering Intern",
+    title: "Software Engineering Intern",
     period: "Summer 2027",
     upcoming: true,
     points: [],
