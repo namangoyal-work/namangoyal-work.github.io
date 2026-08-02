@@ -1,52 +1,35 @@
 ---
 import Base from "../layouts/Base.astro";
-import PageHead from "../components/PageHead.astro";
+import Section from "../components/Section.astro";
 import { achievementPhases } from "../data/achievements";
 ---
 
 <Base
   title="Achievements — Naman Goyal"
-  description="Awards and honours: CISPA European AI & Cybersecurity Hackathon champion, Atlassian FastTrack winner, Dept. Rank 1 at IIT Delhi, USACO Platinum, INPhO and INAO golds, INMO."
+  description="Awards and honours: CISPA European AI & Cybersecurity Hackathon champion, Atlassian FastTrack winner, Dept. Rank 1 at IIT Delhi, USACO Platinum with a perfect 1000/1000, INPhO and INAO golds, INMO."
 >
-  <PageHead
-    label="Achievements"
-    title="Awards & olympiads"
-    lead="University first, then school. Every entry here is certificate-verified."
-  />
+  <header class="text-center">
+    <h1 class="text-[1.7rem] font-extrabold tracking-[-0.02em]">Achievements</h1>
+    <p class="mt-1 text-[0.9rem] u-faint">// every entry here is certificate-verified.</p>
+  </header>
 
-  <div class="space-y-14">
-    {
-      achievementPhases.map((phase) => (
-        <section>
-          <h2 class="label">{phase.phase}</h2>
-          <div class="accent-rule mt-3"></div>
-
-          <div class="mt-6 space-y-10">
-            {phase.groups.map((g) => (
-              <div>
-                <h3 class="text-[1.15rem]">{g.heading}</h3>
-
-                <ul class="mt-4 space-y-3">
-                  {g.items.map((a) => (
-                    <li class="panel px-5 py-4">
-                      <div class="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-1">
-                        <p class="text-[1rem] font-medium">{a.title}</p>
-                        <span
-                          class="meta shrink-0 rounded px-2 py-0.5 uppercase"
-                          style="color: var(--accent-text); background: var(--accent-wash);"
-                        >
-                          {a.badge}
-                        </span>
-                      </div>
-                      <p class="mt-2 text-[0.93rem] leading-[1.7] u-muted">{a.detail}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+  {
+    achievementPhases.map((phase) =>
+      phase.groups.map((g) => (
+        <Section title={`${phase.phase} — ${g.heading}`}>
+          <ul class="space-y-4">
+            {g.items.map((a) => (
+              <li class="row row--wide">
+                <span class="u-faint">[{a.badge}]</span>
+                <div>
+                  <p class="font-bold">{a.title}</p>
+                  <p class="prose-j mt-0.5 u-muted">{a.detail}</p>
+                </div>
+              </li>
             ))}
-          </div>
-        </section>
-      ))
-    }
-  </div>
+          </ul>
+        </Section>
+      )),
+    )
+  }
 </Base>

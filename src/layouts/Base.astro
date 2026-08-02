@@ -2,18 +2,14 @@
 /**
  * Base.astro — the shell every page shares.
  *
- * Dark-first, amber accent, serif display type. Width is ~52rem: wide enough
- * to feel composed, narrow enough to read. Depth comes from layered surfaces
- * and a single soft accent bloom (in global.css), not from gradients on
- * every element.
+ * Terminal-academic: one 880px column on a dot grid, monospace throughout,
+ * bracketed navigation, a theme toggle pinned top-right. No cards, no
+ * shadows — separation is whitespace and dashed rules.
  */
-import "@fontsource-variable/inter";
-import "@fontsource/instrument-serif";
 import "@fontsource-variable/jetbrains-mono";
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import Seo from "../components/Seo.astro";
-import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -23,6 +19,17 @@ interface Props {
 }
 
 const { title, description, noindex } = Astro.props;
+
+const pages = [
+  { href: "/", label: "home" },
+  { href: "/research", label: "research" },
+  { href: "/projects", label: "projects" },
+  { href: "/achievements", label: "achievements" },
+  { href: "/cv", label: "cv" },
+];
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 ---
 
 <!doctype html>
@@ -48,17 +55,43 @@ const { title, description, noindex } = Astro.props;
   </head>
 
   <body>
-    <a
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-black"
-      href="#main">Skip to content</a
+    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:px-3 focus:py-1.5" href="#main">
+      skip to content
+    </a>
+
+    <button
+      data-theme-toggle
+      type="button"
+      class="fixed right-4 top-4 z-40 grid h-9 w-9 place-items-center border u-line"
+      style="color: var(--muted); background: var(--bg);"
+      aria-label="Toggle theme"
     >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
+      </svg>
+    </button>
 
-    <Nav />
+    <div class="page pb-16 pt-12 sm:pt-14">
+      <nav class="mb-12 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[0.82rem]" aria-label="Primary">
+        {
+          pages.map((p) => (
+            <a
+              href={p.href}
+              class="b"
+              aria-current={isActive(p.href) ? "page" : undefined}
+              style={isActive(p.href) ? "background: var(--mark);" : undefined}
+            >
+              {p.label}
+            </a>
+          ))
+        }
+      </nav>
 
-    <div class="mx-auto w-full max-w-[52rem] px-6 sm:px-8">
-      <main id="main" class="pb-20 pt-14 sm:pt-20">
+      <main id="main">
         <slot />
       </main>
+
       <Footer />
     </div>
 

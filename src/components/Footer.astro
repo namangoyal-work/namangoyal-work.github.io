@@ -1,30 +1,9 @@
 ---
 import { site } from "../data/site";
-
-const links = [
-  { label: "Email", href: `mailto:${site.email}` },
-  { label: "GitHub", href: site.socials.github },
-  { label: "LinkedIn", href: site.socials.linkedin },
-  { label: "Résumé", href: "/resume" },
-];
 ---
 
-<footer class="border-t u-line py-8">
-  <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-    <nav class="flex flex-wrap gap-x-6 gap-y-1 text-[0.86rem]" aria-label="Footer">
-      {
-        links.map((l) => (
-          <a
-            class="u-muted transition-colors hover:[color:var(--accent-text)]"
-            href={l.href}
-            target={l.href.startsWith("http") ? "_blank" : undefined}
-            rel={l.href.startsWith("http") ? "noopener" : undefined}
-          >
-            {l.label}
-          </a>
-        ))
-      }
-    </nav>
-    <p class="meta">© 2026 {site.name} · New Delhi</p>
-  </div>
+<footer class="sep mt-16 pt-6 text-center text-[0.78rem] u-faint">
+  <p>
+    &copy; 2026 {site.name} &middot; built with <a class="a" href="https://astro.build" target="_blank" rel="noopener">Astro</a>
+  </p>
 </footer>
