@@ -155,36 +155,6 @@ function initFilters(): void {
   });
 }
 
-/** Subtle magnetic pull on elements marked [data-magnetic]. Pointer only. */
-function initMagnetic(): void {
-  if (prefersReducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
-
-  document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
-    const strength = 0.25;
-    el.addEventListener("pointermove", (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - (r.left + r.width / 2)) * strength;
-      const y = (e.clientY - (r.top + r.height / 2)) * strength;
-      el.style.transform = `translate(${x}px, ${y}px)`;
-    });
-    el.addEventListener("pointerleave", () => {
-      el.style.transform = "";
-    });
-  });
-}
-
-/** Cursor-following spotlight on the hero. Pointer + motion friendly. */
-function initSpotlight(): void {
-  const hero = document.querySelector<HTMLElement>("[data-spotlight]");
-  if (!hero || prefersReducedMotion || !window.matchMedia("(pointer: fine)").matches) return;
-
-  hero.addEventListener("pointermove", (e) => {
-    const r = hero.getBoundingClientRect();
-    hero.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    hero.style.setProperty("--my", `${e.clientY - r.top}px`);
-  });
-}
-
 /** Stamp the current year into the footer. */
 function initYear(): void {
   const el = document.querySelector("#year");
@@ -198,6 +168,4 @@ safe("scroll-chrome", initScrollChrome);
 safe("scroll-spy", initScrollSpy);
 safe("reveal", initReveal);
 safe("filters", initFilters);
-safe("magnetic", initMagnetic);
-safe("spotlight", initSpotlight);
 safe("year", initYear);

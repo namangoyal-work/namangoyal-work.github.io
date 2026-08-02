@@ -8,15 +8,14 @@
 export const site = {
   name: "Naman Goyal",
   /** Short role line used under the name and in the browser tab. */
-  role: "Electrical Engineering @ IIT Delhi",
+  role: "Electrical Engineering, IIT Delhi \u00B7 Dept. Rank 1 \u00B7 CGPA 9.22",
 
-  /** The single sentence that defines you. Shown large in the hero. */
-  headline:
-    "I build fast, correct systems — and research the hardware they run on.",
+  /** Current position. Facts, stated plainly — no tagline. */
+  status: "Incoming Quantitative Software Engineer Intern \u00B7 Virtu Financial \u00B7 Summer 2027",
 
-  /** A supporting line for the hero. Keep it concrete, not boastful. */
+  /** The hero paragraph. Concrete work, not a mission statement. */
   subhead:
-    "Third-year Electrical Engineering at IIT Delhi, ranked first in my department. Incoming quantitative software engineering intern at Virtu Financial; previously hardware-security research at CISPA. I work on low-latency C++, FPGA design, and quantum computing.",
+    "I work on low-latency systems \u2014 execution paths in C++, data planes in FPGA fabric, and the hardware underneath them. Most recently at CISPA Helmholtz Center, where I graded 131 open-source RISC-V cores against their own security claims.",
 
   email: "namangoyal@tutamail.com",
   location: "New Delhi, India",
