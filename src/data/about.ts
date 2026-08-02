@@ -4,8 +4,8 @@
 
 /** Each string is one paragraph. Keep it to two or three. */
 export const aboutParagraphs: string[] = [
-  "I'm a second-year Electrical Engineering student at IIT Delhi, ranked first in my department. I'm drawn to problems that sit between disciplines — where a clean algorithm, a tight C++ implementation, and real silicon all have to agree.",
-  "Right now that means hardware-security research at CISPA, alongside systems I build to sharpen my craft: a low-latency C++ execution engine, quantum simulators, and FPGA designs. My background is competitive mathematics and science, and I apply it to real software and hardware engineering.",
+  "I'm a third-year Electrical Engineering student at IIT Delhi, ranked first in my department. I'm drawn to problems that sit between disciplines — where a clean algorithm, a tight C++ implementation, and real silicon all have to agree.",
+  "Next summer I join Virtu Financial as a quantitative software engineering intern. Before that: hardware-security research at CISPA, and the systems I build to sharpen the craft — a tick-to-trade FPGA pipeline, a low-latency C++ execution engine, quantum simulators. My background is competitive mathematics and science, and I apply it to real software and hardware engineering.",
 ];
 
 export interface Education {

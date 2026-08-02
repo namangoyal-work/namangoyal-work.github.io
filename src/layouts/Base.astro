@@ -14,9 +14,11 @@ interface Props {
   title?: string;
   /** Per-page meta description; omit to use the site default. */
   description?: string;
+  /** Keep this page out of search results. */
+  noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +27,7 @@ const { title, description } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <Seo title={title} description={description} />
+    <Seo title={title} description={description} noindex={noindex} />
 
     {/* Set theme before first paint to avoid a flash of the wrong theme. */}
     <script is:inline>

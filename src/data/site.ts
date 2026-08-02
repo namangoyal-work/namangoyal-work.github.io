@@ -16,7 +16,7 @@ export const site = {
 
   /** A supporting line for the hero. Keep it concrete, not boastful. */
   subhead:
-    "Electrical Engineering at IIT Delhi, currently a research intern at CISPA working on hardware security. I focus on low-latency C++, quantum computing, and turning hard problems into clean code.",
+    "Third-year Electrical Engineering at IIT Delhi, ranked first in my department. Incoming quantitative software engineering intern at Virtu Financial; previously hardware-security research at CISPA. I work on low-latency C++, FPGA design, and quantum computing.",
 
   email: "namangoyal@tutamail.com",
   location: "New Delhi, India",
@@ -27,26 +27,44 @@ export const site = {
     linkedin: "https://www.linkedin.com/in/namangoyalo",
   },
 
+  /**
+   * Extra profile URLs for schema.org `sameAs`.
+   *
+   * This is the highest-value SEO field on a personal site with a common name:
+   * every verified profile you list here is another edge tying the *entity*
+   * "Naman Goyal, IIT Delhi" to this domain, which is how Google tells you
+   * apart from everyone else with your name. Add Codeforces, Kaggle, ORCID,
+   * Google Scholar, Devpost, Stack Overflow — anything you actually own.
+   * Only add URLs that resolve and that link back here where possible.
+   */
+  profiles: [] as string[],
+
   /** SEO. `title` is the <title>; description is the search snippet. */
   seo: {
-    title: "Naman Goyal — Systems, Hardware Security & Quant",
+    title: "Naman Goyal — IIT Delhi | Low-Latency Systems & Quant",
     description:
-      "Naman Goyal — Electrical Engineering at IIT Delhi and research intern at CISPA. I build low-latency C++ systems, quantum simulators, ML models, and FPGA hardware. Open to quant and research internships.",
+      "Naman Goyal — Electrical Engineering at IIT Delhi, Dept Rank 1, incoming quantitative software engineering intern at Virtu Financial. Low-latency C++, FPGA, and hardware-security research.",
     /** 1200×630 image used for link previews on social / chat apps. */
     ogImage: "/og-image.png",
     /** Helps search engines and rich results understand who you are. */
     keywords: [
       "Naman Goyal",
+      "Naman Goyal IIT Delhi",
       "IIT Delhi",
       "Electrical Engineering",
-      "CISPA",
-      "hardware security",
-      "low latency C++",
+      "Virtu Financial",
       "quantitative developer",
-      "quant",
-      "quantum computing",
-      "machine learning",
+      "quant developer",
+      "low latency C++",
+      "high frequency trading systems",
+      "tick to trade",
       "FPGA",
+      "SystemVerilog",
+      "hardware security",
+      "RISC-V",
+      "CISPA",
+      "quantum computing",
+      "competitive programming",
     ],
   },
 
@@ -58,6 +76,8 @@ export const site = {
    */
   verification: {
     google: "",
+    /** Bing Webmaster Tools token (bing.com/webmasters). Optional. */
+    bing: "",
   },
 } as const;
 

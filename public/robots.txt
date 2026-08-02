@@ -1,4 +1,21 @@
+# https://namangoyal.me
+# Everything here is meant to be found. Nothing is disallowed.
+
 User-agent: *
+Allow: /
+
+# Answer engines are increasingly how people look someone up.
+# Explicitly welcome, for the same reason Google is.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
 Allow: /
 
 Sitemap: https://namangoyal.me/sitemap-index.xml

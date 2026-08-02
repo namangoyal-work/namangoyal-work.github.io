@@ -24,7 +24,7 @@
 
   <!-- status -->
   <circle cx="92" cy="214" r="6" fill="#4ade80"/>
-  <text x="108" y="220" font-family="'SF Mono',monospace" font-size="21" fill="#a3a3ad">Research Intern · CISPA Helmholtz Center</text>
+  <text x="108" y="220" font-family="'SF Mono',monospace" font-size="21" fill="#a3a3ad">Incoming Quant SWE Intern · Virtu Financial</text>
 
   <!-- name -->
   <text x="78" y="350" font-family="'Space Grotesk',Inter,Arial,sans-serif" font-size="110" font-weight="700" fill="#f4f4f5" letter-spacing="-5">Naman Goyal</text>
@@ -35,5 +35,5 @@
 
   <!-- footer line -->
   <text x="80" y="546" font-family="Inter,Arial,sans-serif" font-size="24" fill="#8a8a94">Electrical Engineering · IIT Delhi</text>
-  <text x="1120" y="546" font-family="'SF Mono',monospace" font-size="22" fill="#6d8bff" text-anchor="end">namangoyal-work.github.io</text>
+  <text x="1120" y="546" font-family="'SF Mono',monospace" font-size="22" fill="#6d8bff" text-anchor="end">namangoyal.me</text>
 </svg>

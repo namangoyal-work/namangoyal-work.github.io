@@ -15,11 +15,20 @@ const SITE = "https://namangoyal.me";
 export default defineConfig({
   site: SITE,
   trailingSlash: "ignore",
+  // A stable, memorable URL for the résumé — put THIS on LinkedIn, in email
+  // signatures and on applications, never the raw PDF path. The file can be
+  // renamed later without breaking a single link you've already sent out.
+  redirects: {
+    "/resume": "/Naman_Goyal_Resume.pdf",
+    "/cv": "/Naman_Goyal_Resume.pdf",
+  },
   integrations: [
     sitemap({
       changefreq: "monthly",
       priority: 1.0,
       lastmod: new Date(),
+      // Redirect stubs are not content; keep them out of the index.
+      filter: (page) => !/\/(resume|cv)\/?$/.test(page),
     }),
   ],
   build: { inlineStylesheets: "auto" },
