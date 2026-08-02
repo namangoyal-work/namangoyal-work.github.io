@@ -1,105 +1,150 @@
 ---
-/**
- * index.astro — the home page: who I am, what's happening, where to go next.
- * Short by design. The depth lives on /research, /projects and /cv.
- */
 import Base from "../layouts/Base.astro";
 import { site } from "../data/site";
 import { news } from "../data/news";
 import { researchEntries } from "../data/research";
 import { projects } from "../data/projects";
 
-const featuredResearch = researchEntries.slice(0, 2);
+const stats = [
+  { value: "#1", label: "Dept. rank, EE" },
+  { value: "9.22", label: "CGPA" },
+  { value: "131", label: "RISC-V cores audited" },
+  { value: "2027", label: "Virtu, incoming" },
+];
+
 const featuredProjects = projects.slice(0, 3);
 ---
 
 <Base>
+  <!-- ── Intro ─────────────────────────────────────────────── -->
   <section>
-    <h1 class="text-[2rem] sm:text-[2.4rem]">{site.name}</h1>
-    <p class="mt-2 font-mono text-[0.82rem] text-muted">{site.role}</p>
-    <p class="font-mono text-[0.82rem] text-faint">{site.status}</p>
+    <p class="label">Electrical Engineering · IIT Delhi</p>
 
-    <div class="mt-8 space-y-4 text-[1rem] leading-[1.75] text-muted">
+    <h1 class="mt-4 text-[3.2rem] leading-[1.05] sm:text-[4.4rem]">{site.name}</h1>
+
+    <p class="mt-5 text-[0.92rem] u-muted">
+      <span class="mr-2.5 inline-block h-1.5 w-1.5 -translate-y-0.5 rounded-full align-middle" style="background: var(--accent);"
+      ></span>Incoming Quantitative Software Engineer Intern at <span class="text-[var(--text)]">Virtu Financial</span>,
+      Summer 2027
+    </p>
+
+    <div class="mt-8 max-w-[62ch] space-y-4 text-[1.05rem] leading-[1.78] u-muted">
       <p>
-        I'm a third-year Electrical Engineering student at <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">IIT Delhi</span>,
-        ranked first in my department. My research is in <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">quantum computing</span>;
-        before that I worked on hardware security at <a class="link" href="/research">CISPA Helmholtz Center</a>, grading 131 open-source
-        RISC-V cores against their own security claims.
+        Third-year Electrical Engineering at IIT Delhi, ranked first in my department. My research is in
+        <span class="text-[var(--text)]">quantum computing</span>; before that I worked on hardware security at
+        <a class="link" href="/research">CISPA Helmholtz Center</a>, grading 131 open-source RISC-V cores against
+        their own security claims.
       </p>
       <p>
-        Outside research I build low-latency systems — execution paths in C++ and data planes in FPGA fabric. Next
-        summer I join <span class="text-[var(--color-ink)] dark:text-[var(--color-ink-dark)]">Virtu Financial</span> as a quantitative
-        software engineering intern.
+        Outside research I build low-latency systems — execution paths in C++, data planes in FPGA fabric, and the
+        hardware underneath them.
       </p>
     </div>
 
-    <p class="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-[0.88rem]">
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a
+        class="rounded-lg px-4 py-2 text-[0.88rem] font-medium text-black transition-opacity hover:opacity-90"
+        style="background: var(--accent);"
+        href="/research">Read the research</a
+      >
+      <a class="panel panel-hover rounded-lg px-4 py-2 text-[0.88rem]" href="/projects">Selected work</a>
+      <a class="panel panel-hover rounded-lg px-4 py-2 text-[0.88rem]" href="/resume">Résumé ↗</a>
+    </div>
+
+    <p class="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-[0.86rem]">
       <a class="link" href={`mailto:${site.email}`}>Email</a>
       <a class="link" href={site.socials.github} target="_blank" rel="noopener">GitHub</a>
       <a class="link" href={site.socials.linkedin} target="_blank" rel="noopener">LinkedIn</a>
-      <a class="link" href="/resume">Résumé</a>
     </p>
   </section>
 
-  <section class="mt-16">
-    <h2 class="label border-b rule pb-2">Recent</h2>
-    <ul class="mt-5 space-y-4">
+  <!-- ── Numbers ───────────────────────────────────────────── -->
+  <section class="mt-14 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    {
+      stats.map((s) => (
+        <div class="panel px-4 py-4">
+          <p class="font-[family-name:var(--font-display)] text-[1.9rem] leading-none u-accent">{s.value}</p>
+          <p class="meta mt-2">{s.label}</p>
+        </div>
+      ))
+    }
+  </section>
+
+  <!-- ── Recent ────────────────────────────────────────────── -->
+  <section class="mt-20">
+    <div class="flex items-baseline justify-between">
+      <h2 class="label">Recent</h2>
+    </div>
+    <div class="accent-rule mt-3"></div>
+
+    <ul class="mt-6 space-y-5">
       {
         news.map((n) => (
-          <li class="grid grid-cols-[5.5rem_1fr] gap-x-3 text-[0.94rem] max-sm:grid-cols-1 max-sm:gap-y-0.5">
-            <span class="pt-0.5 font-mono text-[0.76rem] text-faint">{n.date}</span>
-            <span class="text-muted">
+          <li class="grid grid-cols-[5.5rem_1fr] gap-x-4 max-sm:grid-cols-1 max-sm:gap-y-1">
+            <span class="meta pt-1">{n.date}</span>
+            <p class="text-[0.96rem] u-muted">
               {n.text}
               {n.href && (
                 <>
                   {" "}
                   <a class="link" href={n.href}>
-                    More
+                    Read more
                   </a>
                 </>
               )}
-            </span>
+            </p>
           </li>
         ))
       }
     </ul>
   </section>
 
-  <section class="mt-16">
-    <h2 class="label border-b rule pb-2">Research</h2>
-    <ul class="mt-5 space-y-5">
+  <!-- ── Research ──────────────────────────────────────────── -->
+  <section class="mt-20">
+    <h2 class="label">Research</h2>
+    <div class="accent-rule mt-3"></div>
+
+    <div class="mt-6 space-y-3">
       {
-        featuredResearch.map((r) => (
-          <li>
-            <a class="group block" href="/research">
-              <h3 class="text-[1rem] font-semibold group-hover:underline">{r.title}</h3>
-              <p class="mt-0.5 text-[0.88rem] text-faint">
-                {r.org} · {r.period}
-              </p>
-            </a>
-          </li>
+        researchEntries.map((r) => (
+          <a class="panel panel-hover block px-5 py-5" href="/research">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h3 class="text-[1.3rem]">{r.title}</h3>
+              <span class="meta">{r.period}</span>
+            </div>
+            <p class="mt-2 text-[0.92rem] u-faint">{r.org}</p>
+            <p class="mt-3 line-clamp-2 text-[0.95rem] u-muted">{r.summary}</p>
+          </a>
         ))
       }
-    </ul>
-    <p class="mt-6 text-[0.88rem]">
-      <a class="link" href="/research">All research →</a>
-    </p>
+    </div>
   </section>
 
-  <section class="mt-16">
-    <h2 class="label border-b rule pb-2">Selected work</h2>
-    <ul class="mt-5 space-y-5">
+  <!-- ── Work ──────────────────────────────────────────────── -->
+  <section class="mt-20">
+    <div class="flex items-baseline justify-between gap-4">
+      <h2 class="label">Selected work</h2>
+      <a class="link text-[0.82rem]" href="/projects">All projects →</a>
+    </div>
+    <div class="accent-rule mt-3"></div>
+
+    <div class="mt-6 space-y-3">
       {
         featuredProjects.map((p) => (
-          <li>
-            <h3 class="text-[1rem] font-semibold">{p.title}</h3>
-            <p class="mt-0.5 text-[0.92rem] text-muted">{p.blurb.split(":")[0]}.</p>
-          </li>
+          <div class="panel px-5 py-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+              <h3 class="text-[1.25rem]">{p.title}</h3>
+              <span class="meta">{p.year}</span>
+            </div>
+            <p class="mt-3 text-[0.95rem] u-muted">{p.blurb}</p>
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              {p.tags.map((t) => (
+                <span class="chip">{t}</span>
+              ))}
+            </div>
+          </div>
         ))
       }
-    </ul>
-    <p class="mt-6 text-[0.88rem]">
-      <a class="link" href="/projects">All projects →</a>
-    </p>
+    </div>
   </section>
 </Base>

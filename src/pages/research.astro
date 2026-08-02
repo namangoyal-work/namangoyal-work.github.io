@@ -9,39 +9,40 @@ import { researchEntries } from "../data/research";
   description="Research by Naman Goyal (IIT Delhi): quantum computing, and hardware supply-chain security of open-source RISC-V cores at CISPA Helmholtz Center."
 >
   <PageHead
-    title="Research"
-    lead="Quantum computing at IIT Delhi, and hardware security at CISPA Helmholtz Center."
+    label="Research"
+    title="What I'm working on"
+    lead="Quantum computing at IIT Delhi, and hardware supply-chain security at CISPA Helmholtz Center."
   />
 
-  <div class="space-y-14">
+  <div class="space-y-6">
     {
       researchEntries.map((r) => (
-        <article>
+        <article class="panel px-6 py-7 sm:px-8">
           <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-            <h2 class="max-w-[38ch] text-[1.15rem] leading-snug">{r.title}</h2>
-            <span class="font-mono text-[0.76rem] text-faint">{r.period}</span>
+            <h2 class="max-w-[34ch] text-[1.6rem] leading-tight">{r.title}</h2>
+            <span class="meta">{r.period}</span>
           </div>
 
-          <p class="mt-1.5 text-[0.9rem] text-muted">{r.org}</p>
-          <p class="mt-0.5 font-mono text-[0.76rem] text-faint">
-            {r.role}
-            {r.status && <> · {r.status}</>}
+          <p class="mt-2 text-[0.92rem] u-muted">{r.org}</p>
+          <p class="mt-2 flex flex-wrap items-center gap-2">
+            <span class="chip">{r.role}</span>
+            {r.status && <span class="chip" style="color: var(--accent-text); border-color: var(--accent-wash);">{r.status}</span>}
           </p>
 
-          <p class="mt-4 text-[0.97rem] leading-[1.75] text-muted">{r.summary}</p>
+          <p class="mt-5 text-[1rem] leading-[1.78] u-muted">{r.summary}</p>
 
           {r.points.length > 0 && (
             <ul class="mt-4 space-y-2">
               {r.points.map((pt) => (
-                <li class="grid grid-cols-[1.15rem_1fr] text-[0.94rem] text-muted">
-                  <span class="text-faint">—</span>
+                <li class="grid grid-cols-[1.15rem_1fr] text-[0.95rem] u-muted">
+                  <span class="u-accent">·</span>
                   <span>{pt}</span>
                 </li>
               ))}
             </ul>
           )}
 
-          <p class="mt-4 font-mono text-[0.72rem] text-faint">{r.tags.join(" · ")}</p>
+          <div class="mt-5 flex flex-wrap gap-1.5">{r.tags.map((t) => <span class="chip">{t}</span>)}</div>
         </article>
       ))
     }

@@ -1,29 +1,55 @@
 @import "tailwindcss";
 
-/* Dark mode is driven by a data-theme attribute (set before first paint in
-   Base.astro), not by the media query alone — so the toggle can override the
-   system preference and the choice persists. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  /* Three faces, each with a job:
+     — Instrument Serif carries display type. A serif is what makes a minimal
+       page read as designed rather than unstyled.
+     — Inter carries body copy.
+     — JetBrains Mono carries metadata, dates and labels. */
+  --font-display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, monospace;
+}
 
-  /* Ink on paper. Greyscale carries the whole design; the one blue is for
-     links only, so a coloured word always means "this is clickable". */
-  --color-paper: #ffffff;
-  --color-ink: #17171a;
-  --color-muted: #56565e;
-  --color-faint: #8e8e97;
-  --color-rule: #e6e6e9;
-  --color-link: #1a4fb4;
+/* ── Dark (default look) ───────────────────────────────────────────────
+   Cool near-black with layered surfaces, and one warm amber accent.
+   Amber on charcoal is the market-terminal palette — it reads expensive,
+   it reads finance, and no other student site is using it. */
+:root,
+[data-theme="dark"] {
+  --bg: #0a0b0d;
+  --bg-elev: #101216;
+  --bg-elev-2: #15181d;
+  --text: #f2f3f5;
+  --muted: #a2a9b4;
+  --faint: #6f7681;
+  --line: rgba(255, 255, 255, 0.075);
+  --line-strong: rgba(255, 255, 255, 0.15);
+  --accent: #f0b429;
+  --accent-text: #f5c451;
+  --accent-wash: rgba(240, 180, 41, 0.12);
+  --glow: rgba(240, 180, 41, 0.16);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.045) inset, 0 20px 40px -28px rgba(0, 0, 0, 0.9);
+  color-scheme: dark;
+}
 
-  --color-paper-dark: #0e0e10;
-  --color-ink-dark: #ececee;
-  --color-muted-dark: #9c9ca4;
-  --color-faint-dark: #6c6c74;
-  --color-rule-dark: #26262b;
-  --color-link-dark: #8fb2ee;
+[data-theme="light"] {
+  --bg: #faf9f6;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #f4f2ed;
+  --text: #14161a;
+  --muted: #555d6b;
+  --faint: #878f9c;
+  --line: rgba(16, 18, 22, 0.1);
+  --line-strong: rgba(16, 18, 22, 0.2);
+  --accent: #a86a06;
+  --accent-text: #8a5600;
+  --accent-wash: rgba(168, 106, 6, 0.09);
+  --glow: rgba(168, 106, 6, 0.09);
+  --shadow: 0 1px 2px rgba(16, 18, 22, 0.04), 0 12px 32px -22px rgba(16, 18, 22, 0.3);
+  color-scheme: light;
 }
 
 @layer base {
@@ -33,66 +59,116 @@
   }
 
   body {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--bg);
+    color: var(--text);
     font-family: var(--font-sans);
-    font-size: 16.5px;
-    line-height: 1.7;
+    font-size: 16px;
+    line-height: 1.72;
     -webkit-font-smoothing: antialiased;
     font-variant-numeric: tabular-nums;
   }
 
-  [data-theme="dark"] body {
-    background: var(--color-paper-dark);
-    color: var(--color-ink-dark);
+  /* Atmosphere: one soft accent bloom behind the top of the page and a
+     fine grain over everything. Both are static and nearly subliminal —
+     they stop large flat areas from reading as "unfinished". */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -20% 0 auto 0;
+    height: 70vh;
+    z-index: -2;
+    pointer-events: none;
+    background: radial-gradient(55% 55% at 50% 0%, var(--glow), transparent 72%);
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
   }
 
   h1, h2, h3 {
-    letter-spacing: -0.02em;
-    font-weight: 600;
-    line-height: 1.25;
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.012em;
+    line-height: 1.12;
   }
 
   a { color: inherit; text-decoration: none; }
 
-  ::selection { background: var(--color-ink); color: var(--color-paper); }
-  [data-theme="dark"] ::selection { background: var(--color-ink-dark); color: var(--color-paper-dark); }
-
-  :focus-visible { outline: 2px solid var(--color-link); outline-offset: 3px; border-radius: 2px; }
-  [data-theme="dark"] :focus-visible { outline-color: var(--color-link-dark); }
+  ::selection { background: var(--accent); color: #0a0b0d; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 }
 
 @layer components {
-  /* A text link inside prose: underlined, offset, blue. Used sparingly. */
-  .link {
-    color: var(--color-link);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2.5px;
-    text-decoration-color: color-mix(in srgb, var(--color-link) 35%, transparent);
-    transition: text-decoration-color 0.15s ease;
-  }
-  .link:hover { text-decoration-color: currentColor; }
-  [data-theme="dark"] .link { color: var(--color-link-dark); }
+  .u-muted { color: var(--muted); }
+  .u-faint { color: var(--faint); }
+  .u-accent { color: var(--accent-text); }
+  .u-line { border-color: var(--line); }
 
-  /* Small uppercase section label. */
+  /* Metadata: mono, small, wide. Every date, tag and label uses this. */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--faint);
+  }
+
   .label {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.11em;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--color-faint);
+    color: var(--accent-text);
   }
-  [data-theme="dark"] .label { color: var(--color-faint-dark); }
 
-  .rule { border-color: var(--color-rule); }
-  [data-theme="dark"] .rule { border-color: var(--color-rule-dark); }
+  .link {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: text-decoration-color 0.18s ease, color 0.18s ease;
+  }
+  .link:hover { text-decoration-color: currentColor; }
 
-  .text-muted { color: var(--color-muted); }
-  [data-theme="dark"] .text-muted { color: var(--color-muted-dark); }
+  /* Elevated panel. The inset top highlight in --shadow is what separates
+     a "card" from a "box with a border" on a dark background. */
+  .panel {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    transition: border-color 0.22s ease, background 0.22s ease, transform 0.22s ease;
+  }
+  .panel-hover:hover {
+    border-color: var(--line-strong);
+    background: var(--bg-elev-2);
+    transform: translateY(-2px);
+  }
 
-  .text-faint { color: var(--color-faint); }
-  [data-theme="dark"] .text-faint { color: var(--color-faint-dark); }
+  .chip {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 5px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg-elev-2) 70%, transparent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+  }
+
+  /* Accent rule used under section headers. */
+  .accent-rule {
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--line) 22%, transparent 60%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

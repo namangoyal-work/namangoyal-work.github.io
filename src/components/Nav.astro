@@ -1,7 +1,6 @@
 ---
 /**
- * Nav.astro — name on the left, pages on the right. Text only.
- * The current page is marked with an underline, not a colour.
+ * Nav.astro — sticky, blurred, with an amber dot marking the current page.
  */
 import { site } from "../data/site";
 
@@ -17,36 +16,44 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isActive = (href: string) => (href === "/" ? path === "/" : path.startsWith(href));
 ---
 
-<header class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 border-b rule py-5">
-  <a href="/" class="text-[0.95rem] font-semibold tracking-tight">{site.name}</a>
+<header
+  class="sticky top-0 z-40 border-b u-line backdrop-blur-xl"
+  style="background: color-mix(in srgb, var(--bg) 82%, transparent);"
+>
+  <div class="mx-auto flex w-full max-w-[52rem] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-3.5 sm:px-8">
+    <a href="/" class="group flex items-center gap-2.5">
+      <span
+        class="grid h-7 w-7 place-items-center rounded-md text-[0.66rem] font-semibold tracking-tight text-black"
+        style="background: var(--accent);">NG</span
+      >
+      <span class="text-[0.92rem] font-medium tracking-tight">{site.name}</span>
+    </a>
 
-  <nav class="flex items-center gap-x-5 text-[0.85rem]" aria-label="Primary">
-    {
-      pages.map((p) => (
-        <a
-          href={p.href}
-          aria-current={isActive(p.href) ? "page" : undefined}
-          class:list={[
-            "pb-0.5 transition-colors",
-            isActive(p.href)
-              ? "border-b border-current"
-              : "text-muted hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)]",
-          ]}
-        >
-          {p.label}
-        </a>
-      ))
-    }
+    <nav class="flex items-center gap-x-1" aria-label="Primary">
+      {
+        pages.map((p) => (
+          <a
+            href={p.href}
+            aria-current={isActive(p.href) ? "page" : undefined}
+            class="relative rounded-md px-2.5 py-1.5 text-[0.83rem] transition-colors"
+            style={isActive(p.href) ? "color: var(--text); background: var(--accent-wash);" : "color: var(--muted);"}
+          >
+            {p.label}
+          </a>
+        ))
+      }
 
-    <button
-      data-theme-toggle
-      type="button"
-      class="text-faint transition-colors hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)]"
-      aria-label="Toggle dark mode"
-    >
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
-      </svg>
-    </button>
-  </nav>
+      <button
+        data-theme-toggle
+        type="button"
+        class="ml-1 grid h-8 w-8 place-items-center rounded-md border u-line transition-colors"
+        style="color: var(--faint);"
+        aria-label="Toggle dark mode"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
+        </svg>
+      </button>
+    </nav>
+  </div>
 </header>

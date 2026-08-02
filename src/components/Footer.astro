@@ -9,20 +9,22 @@ const links = [
 ];
 ---
 
-<footer class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t rule py-6 text-[0.8rem]">
-  <nav class="flex flex-wrap gap-x-5 gap-y-1" aria-label="Footer">
-    {
-      links.map((l) => (
-        <a
-          class="text-muted transition-colors hover:text-[var(--color-ink)] dark:hover:text-[var(--color-ink-dark)]"
-          href={l.href}
-          target={l.href.startsWith("http") ? "_blank" : undefined}
-          rel={l.href.startsWith("http") ? "noopener" : undefined}
-        >
-          {l.label}
-        </a>
-      ))
-    }
-  </nav>
-  <p class="font-mono text-[0.7rem] text-faint">© 2026 {site.name}</p>
+<footer class="border-t u-line py-8">
+  <div class="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
+    <nav class="flex flex-wrap gap-x-6 gap-y-1 text-[0.86rem]" aria-label="Footer">
+      {
+        links.map((l) => (
+          <a
+            class="u-muted transition-colors hover:[color:var(--accent-text)]"
+            href={l.href}
+            target={l.href.startsWith("http") ? "_blank" : undefined}
+            rel={l.href.startsWith("http") ? "noopener" : undefined}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+    <p class="meta">© 2026 {site.name} · New Delhi</p>
+  </div>
 </footer>
