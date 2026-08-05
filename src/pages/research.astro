@@ -20,7 +20,9 @@ import { researchEntries } from "../data/research";
           {r.org}
         </p>
         <p class="mt-0.5 text-[0.88rem] u-faint">
-          {r.role} &middot; {r.period}
+          {r.role}
+          {r.advisor && <> &middot; advised by {r.advisor}</>}
+          &middot; {r.period}
           {r.status && <> &middot; {r.status}</>}
         </p>
 

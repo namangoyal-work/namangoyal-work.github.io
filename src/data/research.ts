@@ -10,6 +10,8 @@ export interface ResearchEntry {
   title: string;
   org: string;
   role: string;
+  /** Supervising professor / group lead, where there is one. */
+  advisor?: string;
   period: string;
   status?: string;
   summary: string;
@@ -22,8 +24,9 @@ export interface ResearchEntry {
 export const researchEntries: ResearchEntry[] = [
   {
     title: "Quantum Complexity of Minimum Weight Cycles and Triangles",
-    org: "IIT Delhi",
+    org: "IIT Delhi · Department of Computer Science and Engineering",
     role: "Undergraduate Researcher",
+    advisor: "Prof. Rajendra Kumar",
     period: "2026 – present",
     status: "In progress",
     summary:

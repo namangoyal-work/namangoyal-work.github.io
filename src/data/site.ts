@@ -38,7 +38,7 @@ export const site = {
   seo: {
     title: "Naman Goyal — IIT Delhi | Quantum Computing & Low-Latency Systems",
     description:
-      "Naman Goyal — Electrical Engineering at IIT Delhi, Dept Rank 1. Researching the quantum complexity of minimum weight cycles and triangles; hardware security at CISPA; low-latency C++ and FPGA systems.",
+      "Naman Goyal — Electrical Engineering at IIT Delhi, Dept Rank 1. Researching the quantum complexity of minimum weight cycles and triangles with Prof. Rajendra Kumar; hardware security at CISPA; low-latency C++ and FPGA systems.",
     /** 1200×630 image used for link previews on social / chat apps. */
     ogImage: "/og-image.png",
     /** Helps search engines and rich results understand who you are. */
