@@ -21,7 +21,8 @@ export const news: NewsItem[] = [
   },
   {
     date: "Aug 2026",
-    text: "Started research in quantum computing.",
+    text: "Started research on the quantum complexity of minimum weight cycles and triangles.",
+    href: "/research",
   },
   {
     date: "Jul 2026",

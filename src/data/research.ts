@@ -15,19 +15,31 @@ export interface ResearchEntry {
   summary: string;
   points: string[];
   tags: string[];
+  /** Papers the work builds on, or outputs once they exist. */
+  links?: { label: string; href: string }[];
 }
 
 export const researchEntries: ResearchEntry[] = [
   {
-    title: "Quantum Computing",
+    title: "Quantum Complexity of Minimum Weight Cycles and Triangles",
     org: "IIT Delhi",
     role: "Undergraduate Researcher",
     period: "2026 – present",
-    status: "Ongoing",
+    status: "In progress",
     summary:
-      "My current research direction is quantum computing — algorithms, simulation, and the software layer between the two. Details of the active project will be posted here as the work develops.",
-    points: [],
-    tags: ["Quantum Computing", "Algorithms", "Simulation"],
+      "Roditty and Vassilevska Williams showed that finding a minimum weight cycle in a weighted graph reduces to finding a minimum weight triangle — a classical equivalence that settled a question of Itai and Rodeh. Our goal is to understand what these problems cost on a quantum computer: which parts of that reduction survive, and what the true quantum complexity of minimum weight cycle and minimum weight triangle actually is.",
+    points: [
+      "Working through the classical cycle-to-triangle reduction and identifying which steps carry over to the quantum setting.",
+      "Surveying what existing quantum approaches to triangle finding — Grover search and quantum walk methods — give on the weighted versions of the problem.",
+      "Asking whether the classical separation between minimum weight cycle and all-pairs shortest paths has a quantum analogue.",
+    ],
+    tags: ["Quantum algorithms", "Fine-grained complexity", "Graph algorithms", "Quantum walks"],
+    links: [
+      {
+        label: "Roditty & Vassilevska Williams — Minimum Weight Cycles and Triangles (arXiv:1104.2882)",
+        href: "https://arxiv.org/abs/1104.2882",
+      },
+    ],
   },
   {
     title: "Hardware Supply-Chain Security of Open-Source CPU & GPU Cores",
