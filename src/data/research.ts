@@ -34,13 +34,13 @@ export const researchEntries: ResearchEntry[] = [
     points: [
       "Working through the classical cycle-to-triangle reduction and identifying which steps carry over to the quantum setting.",
       "Surveying what existing quantum approaches to triangle finding — Grover search and quantum walk methods — give on the weighted versions of the problem.",
-      "Asking whether the classical separation between minimum weight cycle and all-pairs shortest paths has a quantum analogue.", "Checkout the preprint: https://zenodo.org/records/23107182"
+      "Asking whether the classical separation between minimum weight cycle and all-pairs shortest paths has a quantum analogue.",
     ],
     tags: ["Quantum algorithms", "Fine-grained complexity", "Graph algorithms", "Quantum walks"],
     links: [
       {
-        label: "Roditty & Vassilevska Williams — Minimum Weight Cycles and Triangles (arXiv:1104.2882)",
-        href: "https://arxiv.org/abs/1104.2882",
+        label: "Preprint",
+        href: "https://zenodo.org/records/23107182",
       },
     ],
   },
