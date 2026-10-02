@@ -26,7 +26,7 @@ export const researchEntries: ResearchEntry[] = [
     title: "Quantum Complexity of Minimum Weight Cycles and Triangles",
     org: "IIT Delhi · Department of Computer Science and Engineering",
     role: "Undergraduate Researcher",
-    advisor: "Prof. Rajendra Kumar",
+    advisor: "None",
     period: "2026 – present",
     status: "In progress",
     summary:
@@ -34,7 +34,7 @@ export const researchEntries: ResearchEntry[] = [
     points: [
       "Working through the classical cycle-to-triangle reduction and identifying which steps carry over to the quantum setting.",
       "Surveying what existing quantum approaches to triangle finding — Grover search and quantum walk methods — give on the weighted versions of the problem.",
-      "Asking whether the classical separation between minimum weight cycle and all-pairs shortest paths has a quantum analogue.",
+      "Asking whether the classical separation between minimum weight cycle and all-pairs shortest paths has a quantum analogue.", "Checkout the preprint: https://zenodo.org/records/23107182"
     ],
     tags: ["Quantum algorithms", "Fine-grained complexity", "Graph algorithms", "Quantum walks"],
     links: [
